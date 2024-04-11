@@ -1,3 +1,4 @@
+import { HomePage } from '../../src/pages/home.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Main pages verification', () => {
@@ -14,11 +15,12 @@ test.describe('Main pages verification', () => {
 
   test('Home link navigates to Home page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedHomePageTitle = /Practice Software Testing - Toolshop/;
 
     // Act
     await page.goto('/#/auth/login');
-    await page.locator('[data-test="nav-home"]').click();
+    await homePage.mainMenu.homePageLink.click();
 
     // Assert
     await expect(page).toHaveTitle(expectedHomePageTitle);
@@ -26,12 +28,13 @@ test.describe('Main pages verification', () => {
 
   test('Hand Tools link navigates to Hand Tools page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedHandToolsPageTitle = 'Category: Hand Tools';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-categories"]').click();
-    await page.locator('[data-test="nav-hand-tools"]').click();
+    await homePage.mainMenu.categorySubmenu.click();
+    await homePage.mainMenu.handToolsLink.click();
 
     // Assert
     await expect(page.locator('[data-test="page-title"]')).toHaveText(
@@ -41,12 +44,13 @@ test.describe('Main pages verification', () => {
 
   test('Power Tools link navigates to Power Tools page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedPowerToolsPageTitle = 'Category: Power Tools';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-categories"]').click();
-    await page.locator('[data-test="nav-power-tools"]').click();
+    await homePage.mainMenu.categorySubmenu.click();
+    await homePage.mainMenu.powerToolsLink.click();
 
     // Assert
     await expect(page.locator('[data-test="page-title"]')).toHaveText(
@@ -56,12 +60,13 @@ test.describe('Main pages verification', () => {
 
   test('Other link navigates to Other page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedOtherPageTitle = 'Category: Other';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-categories"]').click();
-    await page.locator('[data-test="nav-other"]').click();
+    await homePage.mainMenu.categorySubmenu.click();
+    await homePage.mainMenu.otherPageLink.click();
 
     // Assert
     await expect(page.locator('[data-test="page-title"]')).toHaveText(
@@ -73,12 +78,13 @@ test.describe('Main pages verification', () => {
     page,
   }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedSpecialToolsPageTitle = 'Category: Special Tools';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-categories"]').click();
-    await page.locator('[data-test="nav-special-tools"]').click();
+    await homePage.mainMenu.categorySubmenu.click();
+    await homePage.mainMenu.specialToolsPageLink.click();
 
     // Assert
     await expect(page.locator('[data-test="page-title"]')).toHaveText(
@@ -88,12 +94,13 @@ test.describe('Main pages verification', () => {
 
   test('Rentals link navigates to Rentals page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedRentalsPageTitle = 'Rentals';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-categories"]').click();
-    await page.locator('[data-test="nav-rentals"]').click();
+    await homePage.mainMenu.categorySubmenu.click();
+    await homePage.mainMenu.rentalsPageLink.click();
 
     // Assert
     await expect(page.locator('[data-test="page-title"]')).toHaveText(
@@ -103,11 +110,12 @@ test.describe('Main pages verification', () => {
 
   test('Contact link navigates to Contact page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedContactPageTitle = 'Contact';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-contact"]').click();
+    await await homePage.mainMenu.contactLink.click();
 
     // Assert
     await expect(page.getByRole('heading', { name: 'Contact' })).toHaveText(
@@ -117,11 +125,12 @@ test.describe('Main pages verification', () => {
 
   test('Sign in link navigates to Sign in page', async ({ page }) => {
     // Arrange
+    const homePage = new HomePage(page);
     const expectedSignInPageTitle = 'Login';
 
     // Act
     await page.goto('');
-    await page.locator('[data-test="nav-sign-in"]').click();
+    await homePage.mainMenu.loginPageLink.click();
 
     // Assert
     await expect(page.getByRole('heading', { name: 'Login' })).toHaveText(
