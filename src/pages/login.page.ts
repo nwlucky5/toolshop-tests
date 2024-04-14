@@ -3,6 +3,7 @@ import { Page } from '@playwright/test';
 
 export class LoginPage {
   url = '/#/auth/login';
+  loginTitle = this.page.getByRole('heading', { name: 'Login' });
 
   constructor(private page: Page) {}
 
