@@ -1,29 +1,33 @@
 import { HomePage } from '../../src/pages/home.page';
+import { LoginPage } from '../../src/pages/login.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Main pages verification', () => {
-  test('Home page title', async ({ page }) => {
+  test('Page title', async ({ page }) => {
     // Arrange
-    const expectedHomePageTitle = /Practice Software Testing - Toolshop/;
+    const expectedPageTitle = /Practice Software Testing - Toolshop/;
+    const homePage = new HomePage(page);
 
     // Act
-    await page.goto('');
+    await homePage.goto();
 
     // Assert
-    await expect(page).toHaveTitle(expectedHomePageTitle);
+    await expect(page).toHaveTitle(expectedPageTitle);
   });
 
   test('Home link navigates to Home page', async ({ page }) => {
     // Arrange
+    const homePageURL = 'https://practicesoftwaretesting.com/#/';
     const homePage = new HomePage(page);
-    const expectedHomePageTitle = /Practice Software Testing - Toolshop/;
+    const loginPage = new LoginPage(page);
 
     // Act
-    await page.goto('/#/auth/login');
+    await loginPage.goto();
     await homePage.mainMenu.homePageLink.click();
 
     // Assert
-    await expect(page).toHaveTitle(expectedHomePageTitle);
+    await expect.soft(homePage.homePageBanner).toBeVisible();
+    await expect(page).toHaveURL(homePageURL);
   });
 
   test('Hand Tools link navigates to Hand Tools page', async ({ page }) => {
@@ -32,7 +36,7 @@ test.describe('Main pages verification', () => {
     const expectedHandToolsPageTitle = 'Category: Hand Tools';
 
     // Act
-    await page.goto('');
+    await homePage.goto();
     await homePage.mainMenu.categorySubmenu.click();
     await homePage.mainMenu.handToolsLink.click();
 
@@ -48,7 +52,7 @@ test.describe('Main pages verification', () => {
     const expectedPowerToolsPageTitle = 'Category: Power Tools';
 
     // Act
-    await page.goto('');
+    await homePage.goto();
     await homePage.mainMenu.categorySubmenu.click();
     await homePage.mainMenu.powerToolsLink.click();
 
@@ -64,7 +68,7 @@ test.describe('Main pages verification', () => {
     const expectedOtherPageTitle = 'Category: Other';
 
     // Act
-    await page.goto('');
+    await homePage.goto();
     await homePage.mainMenu.categorySubmenu.click();
     await homePage.mainMenu.otherPageLink.click();
 
@@ -82,7 +86,7 @@ test.describe('Main pages verification', () => {
     const expectedSpecialToolsPageTitle = 'Category: Special Tools';
 
     // Act
-    await page.goto('');
+    await homePage.goto();
     await homePage.mainMenu.categorySubmenu.click();
     await homePage.mainMenu.specialToolsPageLink.click();
 
@@ -98,7 +102,7 @@ test.describe('Main pages verification', () => {
     const expectedRentalsPageTitle = 'Rentals';
 
     // Act
-    await page.goto('');
+    await homePage.goto();
     await homePage.mainMenu.categorySubmenu.click();
     await homePage.mainMenu.rentalsPageLink.click();
 
@@ -114,8 +118,8 @@ test.describe('Main pages verification', () => {
     const expectedContactPageTitle = 'Contact';
 
     // Act
-    await page.goto('');
-    await await homePage.mainMenu.contactLink.click();
+    await homePage.goto();
+    await homePage.mainMenu.contactLink.click();
 
     // Assert
     await expect(page.getByRole('heading', { name: 'Contact' })).toHaveText(
@@ -129,7 +133,7 @@ test.describe('Main pages verification', () => {
     const expectedSignInPageTitle = 'Login';
 
     // Act
-    await page.goto('');
+    await homePage.goto();
     await homePage.mainMenu.loginPageLink.click();
 
     // Assert
