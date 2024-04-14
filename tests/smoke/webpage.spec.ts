@@ -1,3 +1,5 @@
+import { CategoryPage } from '../../src/pages/category.page';
+import { ContactPage } from '../../src/pages/contact.page';
 import { HomePage } from '../../src/pages/home.page';
 import { LoginPage } from '../../src/pages/login.page';
 import { expect, test } from '@playwright/test';
@@ -18,11 +20,13 @@ test.describe('Main pages verification', () => {
   test('Home link navigates to Home page', async ({ page }) => {
     // Arrange
     const homePageURL = 'https://practicesoftwaretesting.com/#/';
+    const loginPageURL = 'https://practicesoftwaretesting.com/#/auth/login';
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
 
     // Act
     await loginPage.goto();
+    await expect.soft(page).toHaveURL(loginPageURL);
     await homePage.mainMenu.homePageLink.click();
 
     // Assert
@@ -33,6 +37,8 @@ test.describe('Main pages verification', () => {
   test('Hand Tools link navigates to Hand Tools page', async ({ page }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const categoryPage = new CategoryPage(page);
+
     const expectedHandToolsPageTitle = 'Category: Hand Tools';
 
     // Act
@@ -41,7 +47,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.handToolsLink.click();
 
     // Assert
-    await expect(page.locator('[data-test="page-title"]')).toHaveText(
+    await expect(categoryPage.categoryTitle).toHaveText(
       expectedHandToolsPageTitle,
     );
   });
@@ -49,6 +55,7 @@ test.describe('Main pages verification', () => {
   test('Power Tools link navigates to Power Tools page', async ({ page }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const categoryPage = new CategoryPage(page);
     const expectedPowerToolsPageTitle = 'Category: Power Tools';
 
     // Act
@@ -57,7 +64,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.powerToolsLink.click();
 
     // Assert
-    await expect(page.locator('[data-test="page-title"]')).toHaveText(
+    await expect(categoryPage.categoryTitle).toHaveText(
       expectedPowerToolsPageTitle,
     );
   });
@@ -65,6 +72,7 @@ test.describe('Main pages verification', () => {
   test('Other link navigates to Other page', async ({ page }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const categoryPage = new CategoryPage(page);
     const expectedOtherPageTitle = 'Category: Other';
 
     // Act
@@ -73,9 +81,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.otherPageLink.click();
 
     // Assert
-    await expect(page.locator('[data-test="page-title"]')).toHaveText(
-      expectedOtherPageTitle,
-    );
+    await expect(categoryPage.categoryTitle).toHaveText(expectedOtherPageTitle);
   });
 
   test('Special Tools link navigates to Special Tools page', async ({
@@ -83,6 +89,7 @@ test.describe('Main pages verification', () => {
   }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const categoryPage = new CategoryPage(page);
     const expectedSpecialToolsPageTitle = 'Category: Special Tools';
 
     // Act
@@ -91,7 +98,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.specialToolsPageLink.click();
 
     // Assert
-    await expect(page.locator('[data-test="page-title"]')).toHaveText(
+    await expect(categoryPage.categoryTitle).toHaveText(
       expectedSpecialToolsPageTitle,
     );
   });
@@ -99,6 +106,7 @@ test.describe('Main pages verification', () => {
   test('Rentals link navigates to Rentals page', async ({ page }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const categoryPage = new CategoryPage(page);
     const expectedRentalsPageTitle = 'Rentals';
 
     // Act
@@ -107,7 +115,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.rentalsPageLink.click();
 
     // Assert
-    await expect(page.locator('[data-test="page-title"]')).toHaveText(
+    await expect(categoryPage.categoryTitle).toHaveText(
       expectedRentalsPageTitle,
     );
   });
@@ -115,6 +123,7 @@ test.describe('Main pages verification', () => {
   test('Contact link navigates to Contact page', async ({ page }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const contactPage = new ContactPage(page);
     const expectedContactPageTitle = 'Contact';
 
     // Act
@@ -122,14 +131,13 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.contactLink.click();
 
     // Assert
-    await expect(page.getByRole('heading', { name: 'Contact' })).toHaveText(
-      expectedContactPageTitle,
-    );
+    await expect(contactPage.contactTitle).toHaveText(expectedContactPageTitle);
   });
 
   test('Sign in link navigates to Sign in page', async ({ page }) => {
     // Arrange
     const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
     const expectedSignInPageTitle = 'Login';
 
     // Act
@@ -137,8 +145,6 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.loginPageLink.click();
 
     // Assert
-    await expect(page.getByRole('heading', { name: 'Login' })).toHaveText(
-      expectedSignInPageTitle,
-    );
+    await expect(loginPage.loginTitle).toHaveText(expectedSignInPageTitle);
   });
 });
