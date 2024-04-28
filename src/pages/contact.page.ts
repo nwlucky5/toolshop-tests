@@ -1,4 +1,5 @@
 import { MainMenuComponent } from '../components/main-menu.component';
+import { ContactFormModel } from '../models/contact-form.model';
 import { Page } from '@playwright/test';
 
 export class ContactPage {
@@ -9,12 +10,15 @@ export class ContactPage {
   emailAddressInput = this.page.locator('[data-test="email"]');
   subjectDropdown = this.page.locator('[data-test="subject"]');
   messageInput = this.page.locator('[data-test="message"]');
+  attachmentButton = this.page.locator('[data-test="attachment"]');
   firstNameError = this.page.locator('[data-test="first-name-error"]');
   lastNameError = this.page.locator('[data-test="last-name-error"]');
   emailAddressError = this.page.locator('[data-test="email-error"]');
   subjectError = this.page.locator('[data-test="subject-error"]');
   messageError = this.page.locator('[data-test="message-error"]');
+  attachmentError = this.page.locator('[data-test="attachment-error"]');
   submitButton = this.page.locator('[data-test="contact-submit"]');
+  conformationMessageText = this.page.locator('.alert-success');
 
   constructor(private page: Page) {}
 
@@ -22,5 +26,21 @@ export class ContactPage {
 
   async goto(): Promise<void> {
     await this.page.goto(this.url);
+  }
+
+  async createContactMessage(
+    contactFormData: ContactFormModel,
+    subjectOption: string = 'return',
+  ): Promise<void> {
+    await this.firstNameInput.fill(contactFormData.firstName);
+    await this.lastNameInput.fill(contactFormData.lastName);
+    await this.emailAddressInput.fill(contactFormData.emailAddress);
+    await this.subjectDropdown.selectOption(subjectOption);
+    await this.messageInput.fill(contactFormData.message);
+    await this.submitButton.click();
+  }
+
+  async addAttachment(attachmentRelativePath: string): Promise<void> {
+    await this.attachmentButton.setInputFiles(attachmentRelativePath);
   }
 }
