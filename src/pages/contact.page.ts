@@ -17,7 +17,7 @@ export class ContactPage {
   subjectError = this.page.locator('[data-test="subject-error"]');
   messageError = this.page.locator('[data-test="message-error"]');
   attachmentError = this.page.locator('[data-test="attachment-error"]');
-  submitButton = this.page.locator('[data-test="contact-submit"]');
+  sendButton = this.page.locator('[data-test="contact-submit"]');
   conformationMessageText = this.page.locator('.alert-success');
 
   constructor(private page: Page) {}
@@ -28,7 +28,7 @@ export class ContactPage {
     await this.page.goto(this.url);
   }
 
-  async createContactMessage(
+  async populateAndSendContactForm(
     contactFormData: ContactFormModel,
     subjectOption: string = 'return',
   ): Promise<void> {
@@ -37,7 +37,7 @@ export class ContactPage {
     await this.emailAddressInput.fill(contactFormData.emailAddress);
     await this.subjectDropdown.selectOption(subjectOption);
     await this.messageInput.fill(contactFormData.message);
-    await this.submitButton.click();
+    await this.sendButton.click();
   }
 
   async addAttachment(attachmentRelativePath: string): Promise<void> {
