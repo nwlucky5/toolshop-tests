@@ -19,8 +19,8 @@ test.describe('Main pages verification', () => {
 
   test('Home link navigates to Home page', async ({ page }) => {
     // Arrange
-    const homePageURL = 'https://practicesoftwaretesting.com/#/';
-    const loginPageURL = 'https://practicesoftwaretesting.com/#/auth/login';
+    const homePageURL = 'https://practicesoftwaretesting.com/';
+    const loginPageURL = 'https://practicesoftwaretesting.com/auth/login';
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
 
