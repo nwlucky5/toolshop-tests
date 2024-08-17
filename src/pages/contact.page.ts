@@ -3,7 +3,7 @@ import { ContactFormModel } from '../models/contact-form.model';
 import { Page } from '@playwright/test';
 
 export class ContactPage {
-  url = '/#/contact';
+  url = '/contact';
   contactTitle = this.page.getByRole('heading', { name: 'Contact' });
   firstNameInput = this.page.locator('[data-test="first-name"]');
   lastNameInput = this.page.locator('[data-test="last-name"]');
