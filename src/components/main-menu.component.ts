@@ -12,4 +12,5 @@ export class MainMenuComponent {
   rentalsPageLink = this.page.locator('[data-test="nav-rentals"]');
   contactLink = this.page.locator('[data-test="nav-contact"]');
   loginPageLink = this.page.locator('[data-test="nav-sign-in"]');
+  userSubmenu = this.page.locator('[data-test="nav-menu"]');
 }
