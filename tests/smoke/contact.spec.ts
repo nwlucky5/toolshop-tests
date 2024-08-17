@@ -6,6 +6,7 @@ import { expect, test } from '@playwright/test';
 test.describe('Contact form verification', () => {
   let contactPage: ContactPage;
   let contactFormData: ContactFormModel;
+
   test.beforeEach(async ({ page }) => {
     contactPage = new ContactPage(page);
     contactFormData = prepareRandomContactForm();
@@ -31,7 +32,6 @@ test.describe('Contact form verification', () => {
       'Thanks for your message! We will contact you shortly.';
 
     // Act
-    // await contactPage.goto();
     await contactPage.addAttachment(attachmentRelativePath);
     await contactPage.populateAndSendContactForm(contactFormData);
 
@@ -145,16 +145,12 @@ test.describe('Contact form verification', () => {
       expectedEmailErrorText,
     );
   });
-  test('Unsuccessful submit of Contact form with no first name value', async ({
-    page,
-  }) => {
+  test('Unsuccessful submit of Contact form with no first name value', async () => {
     // Arrange
     contactFormData.firstName = '';
     const expectedFirstNameErrorText = 'First name is required';
 
     // Act
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await page.waitForTimeout(2000);
     await contactPage.populateAndSendContactForm(contactFormData);
 
     // Assert
@@ -162,16 +158,12 @@ test.describe('Contact form verification', () => {
       expectedFirstNameErrorText,
     );
   });
-  test('Unsuccessful submit of Contact form with no last name value', async ({
-    page,
-  }) => {
+  test('Unsuccessful submit of Contact form with no last name value', async () => {
     // Arrange
     contactFormData.lastName = '';
     const expectedLastNameErrorText = 'Last name is required';
 
     // Act
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await page.waitForTimeout(2000);
     await contactPage.populateAndSendContactForm(contactFormData);
 
     // Assert
