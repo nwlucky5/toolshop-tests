@@ -14,7 +14,7 @@ test.describe('Contact form verification', () => {
   });
   test('Successful Contact form submit without attachment', async () => {
     // Arrange
-    const expectedConformationMessageTeXt =
+    const expectedConformationMessageText =
       'Thanks for your message! We will contact you shortly.';
 
     // Act
@@ -22,13 +22,13 @@ test.describe('Contact form verification', () => {
 
     // Assert
     await expect(contactPage.conformationMessageText).toHaveText(
-      expectedConformationMessageTeXt,
+      expectedConformationMessageText,
     );
   });
   test('Successful Contact form submit with ".txt" attachment', async () => {
     // Arrange
     const attachmentRelativePath = 'fixtures/attachment1.txt';
-    const expectedConformationMessageTeXt =
+    const expectedConformationMessageText =
       'Thanks for your message! We will contact you shortly.';
 
     // Act
@@ -37,7 +37,7 @@ test.describe('Contact form verification', () => {
 
     // Assert
     await expect(contactPage.conformationMessageText).toHaveText(
-      expectedConformationMessageTeXt,
+      expectedConformationMessageText,
     );
   });
   test('Unsuccessful Contact form submit with ".txt" attachment having content', async () => {
