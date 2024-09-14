@@ -1,12 +1,12 @@
-import { prepareRandomBillingAddress } from '../../src/factories/billing-address.factory';
-import { prepareRandomCreditCard } from '../../src/factories/payment.factory';
-import { BillingAddressModel } from '../../src/models/billing-address.model';
-import { HandTools } from '../../src/pages/hand-tools.page';
-import { Product } from '../../src/pages/product.page';
-import { CheckoutBillingAddressView } from '../../src/views/checkout-billing-address.view';
-import { CheckoutCartView } from '../../src/views/checkout-cart.view';
-import { CheckoutLoginView } from '../../src/views/checkout-login.view';
-import { CheckoutPaymentView } from '../../src/views/checkout-payment.view';
+import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
+import { prepareRandomCreditCard } from '../../../src/factories/payment.factory';
+import { BillingAddressModel } from '../../../src/models/billing-address.model';
+import { HandTools } from '../../../src/pages/hand-tools.page';
+import { Product } from '../../../src/pages/product.page';
+import { CheckoutBillingAddressView } from '../../../src/views/checkout-billing-address.view';
+import { CheckoutCartView } from '../../../src/views/checkout-cart.view';
+import { CheckoutLoginView } from '../../../src/views/checkout-login.view';
+import { CheckoutPaymentView } from '../../../src/views/checkout-payment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Payment process verification for Credit Card', () => {

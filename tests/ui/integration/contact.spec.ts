@@ -1,6 +1,6 @@
-import { prepareRandomContactForm } from '../../src/factories/contact-form.factory';
-import { ContactFormModel } from '../../src/models/contact-form.model';
-import { ContactPage } from '../../src/pages/contact.page';
+import { prepareRandomContactForm } from '../../../src/factories/contact-form.factory';
+import { ContactFormModel } from '../../../src/models/contact-form.model';
+import { ContactPage } from '../../../src/pages/contact.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Contact form verification', () => {
