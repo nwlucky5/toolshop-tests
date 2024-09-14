@@ -1,6 +1,6 @@
-import { LoginUserModel } from '../../src/models/user.model';
-import { LoginPage } from '../../src/pages/login.page';
-import { testUser1 } from '../../src/test-data/test.data';
+import { LoginUserModel } from '../../../src/models/user.model';
+import { LoginPage } from '../../../src/pages/login.page';
+import { testUser1 } from '../../../src/test-data/test.data';
 import test, { expect } from '@playwright/test';
 
 test.describe('Login verification', () => {
@@ -11,7 +11,7 @@ test.describe('Login verification', () => {
   });
   test('Login with correct credentials', async () => {
     // Arrange
-    const expectedUsername = 'Jane Doe';
+    const expectedUsername = 'Jack Howe';
 
     // Act
     await loginPage.login(testUser1);
