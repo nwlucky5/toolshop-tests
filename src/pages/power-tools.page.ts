@@ -1,11 +1,9 @@
 import { MainMenuComponent } from '../components/main-menu.component';
 import { Page } from '@playwright/test';
 
-export class HandToolsPage {
-  url = '/category/hand-tools';
+export class PowerToolsPage {
+  url = '/category/power-tools';
   categoryTitle = this.page.locator('[data-test="page-title"]');
-  firstProduct = this.page.getByText('Combination Pliers');
-  productOutOfStock = this.page.getByText('Out of stock');
 
   constructor(private page: Page) {}
 
