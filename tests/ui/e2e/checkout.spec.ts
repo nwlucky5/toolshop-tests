@@ -1,7 +1,7 @@
 import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
 import { prepareRandomCreditCard } from '../../../src/factories/payment.factory';
 import { CheckoutPage } from '../../../src/pages/checkout.page';
-import { HandTools } from '../../../src/pages/hand-tools.page';
+import { HandToolsPage } from '../../../src/pages/hand-tools.page';
 import { Product } from '../../../src/pages/product.page';
 import { testUser1 } from '../../../src/test-data/test.data';
 import { CheckoutBillingAddressView } from '../../../src/views/checkout-billing-address.view';
@@ -11,7 +11,7 @@ import { CheckoutPaymentView } from '../../../src/views/checkout-payment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Checkout process verification', () => {
-  let handToolsPage: HandTools;
+  let handToolsPage: HandToolsPage;
   let productPage: Product;
   let checkoutPage: CheckoutPage;
   let checkoutCartView: CheckoutCartView;
@@ -21,7 +21,7 @@ test.describe('Checkout process verification', () => {
   let checkoutPaymentView: CheckoutPaymentView;
 
   test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandTools(page);
+    handToolsPage = new HandToolsPage(page);
     productPage = new Product(page);
     checkoutPage = new CheckoutPage(page);
     checkoutCartView = new CheckoutCartView(page);

@@ -1,7 +1,7 @@
 import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
 import { prepareRandomGiftCard } from '../../../src/factories/payment.factory';
 import { BillingAddressModel } from '../../../src/models/billing-address.model';
-import { HandTools } from '../../../src/pages/hand-tools.page';
+import { HandToolsPage } from '../../../src/pages/hand-tools.page';
 import { Product } from '../../../src/pages/product.page';
 import { CheckoutBillingAddressView } from '../../../src/views/checkout-billing-address.view';
 import { CheckoutCartView } from '../../../src/views/checkout-cart.view';
@@ -10,7 +10,7 @@ import { CheckoutPaymentView } from '../../../src/views/checkout-payment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Payment process verification for Gift Card', () => {
-  let handToolsPage: HandTools;
+  let handToolsPage: HandToolsPage;
   let productPage: Product;
   let checkoutCartView: CheckoutCartView;
   let checkoutLoginView: CheckoutLoginView;
@@ -19,7 +19,7 @@ test.describe('Payment process verification for Gift Card', () => {
   let billingAddressData: BillingAddressModel;
 
   test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandTools(page);
+    handToolsPage = new HandToolsPage(page);
     productPage = new Product(page);
     checkoutCartView = new CheckoutCartView(page);
     checkoutLoginView = new CheckoutLoginView(page);

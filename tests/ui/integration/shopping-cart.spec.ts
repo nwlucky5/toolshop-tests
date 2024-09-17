@@ -1,13 +1,13 @@
-import { HandTools } from '../../../src/pages/hand-tools.page';
+import { HandToolsPage } from '../../../src/pages/hand-tools.page';
 import { Product } from '../../../src/pages/product.page';
 import test, { expect } from '@playwright/test';
 
 test.describe('Adding product to shopping cart verification', () => {
-  let handToolsPage: HandTools;
+  let handToolsPage: HandToolsPage;
   let productPage: Product;
 
   test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandTools(page);
+    handToolsPage = new HandToolsPage(page);
     productPage = new Product(page);
 
     await handToolsPage.goto();
