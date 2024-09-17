@@ -1,18 +1,30 @@
-import { CategoryPage } from '../../../src/pages/category.page';
 import { ContactPage } from '../../../src/pages/contact.page';
+import { HandToolsPage } from '../../../src/pages/hand-tools.page';
 import { HomePage } from '../../../src/pages/home.page';
 import { LoginPage } from '../../../src/pages/login.page';
+import { OtherPage } from '../../../src/pages/other.page';
+import { PowerToolsPage } from '../../../src/pages/power-tools.page';
+import { RentalsPage } from '../../../src/pages/rentals.page';
+import { SpecialToolsPage } from '../../../src/pages/special-tools.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Main pages verification', () => {
   let homePage: HomePage;
-  let categoryPage: CategoryPage;
+  let handToolsPage: HandToolsPage;
+  let powerToolsPage: PowerToolsPage;
+  let otherPage: OtherPage;
+  let specialToolsPage: SpecialToolsPage;
+  let rentalsPage: RentalsPage;
   let contactPage: ContactPage;
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
-    categoryPage = new CategoryPage(page);
+    handToolsPage = new HandToolsPage(page);
+    powerToolsPage = new PowerToolsPage(page);
+    otherPage = new OtherPage(page);
+    specialToolsPage = new SpecialToolsPage(page);
+    rentalsPage = new RentalsPage(page);
     contactPage = new ContactPage(page);
     loginPage = new LoginPage(page);
 
@@ -50,7 +62,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.clickHandToolsLink();
 
     // Assert
-    await expect(categoryPage.categoryTitle).toHaveText(
+    await expect(handToolsPage.categoryTitle).toHaveText(
       expectedHandToolsPageTitle,
     );
   });
@@ -63,7 +75,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.clickPowerToolsLink();
 
     // Assert
-    await expect(categoryPage.categoryTitle).toHaveText(
+    await expect(powerToolsPage.categoryTitle).toHaveText(
       expectedPowerToolsPageTitle,
     );
   });
@@ -76,7 +88,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.clickOtherPageLink();
 
     // Assert
-    await expect(categoryPage.categoryTitle).toHaveText(expectedOtherPageTitle);
+    await expect(otherPage.categoryTitle).toHaveText(expectedOtherPageTitle);
   });
 
   test('Special Tools link navigates to Special Tools page', async () => {
@@ -87,7 +99,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.clickSpecialToolsPageLink();
 
     // Assert
-    await expect(categoryPage.categoryTitle).toHaveText(
+    await expect(specialToolsPage.categoryTitle).toHaveText(
       expectedSpecialToolsPageTitle,
     );
   });
@@ -100,7 +112,7 @@ test.describe('Main pages verification', () => {
     await homePage.mainMenu.clickRentalsLink();
 
     // Assert
-    await expect(categoryPage.categoryTitle).toHaveText(
+    await expect(rentalsPage.categoryTitle).toHaveText(
       expectedRentalsPageTitle,
     );
   });
