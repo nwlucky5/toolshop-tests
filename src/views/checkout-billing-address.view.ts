@@ -30,35 +30,4 @@ export class CheckoutBillingAddressView {
     await this.postcodeInput.blur();
     await this.proceedToCheckoutButton.click();
   }
-
-  async verifyBillingAddress(
-    billingAddressData: BillingAddressModel,
-  ): Promise<void> {
-    const addressInputValue = await this.addressInput.inputValue();
-    if (addressInputValue.trim() !== '') {
-      await this.addressInput.fill(billingAddressData.address);
-    }
-
-    const cityInputValue = await this.cityInput.inputValue();
-    if (cityInputValue.trim() !== '') {
-      await this.cityInput.fill(billingAddressData.city);
-    }
-
-    const stateInputValue = await this.stateInput.inputValue();
-    if (stateInputValue.trim() !== '') {
-      await this.stateInput.fill(billingAddressData.state);
-    }
-
-    const countryInputValue = await this.countryInput.inputValue();
-    if (countryInputValue.trim() !== '') {
-      await this.countryInput.fill(billingAddressData.country);
-    }
-
-    const postcodeInputValue = await this.postcodeInput.inputValue();
-    if (postcodeInputValue.trim() !== '') {
-      await this.postcodeInput.fill(billingAddressData.postcode);
-    }
-
-    await this.proceedToCheckoutButton.click();
-  }
 }
