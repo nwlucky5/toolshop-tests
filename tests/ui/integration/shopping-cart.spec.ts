@@ -1,19 +1,10 @@
-import { HandToolsPage } from '../../../src/pages/hand-tools.page';
-import { Product } from '../../../src/pages/product.page';
-import test, { expect } from '@playwright/test';
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 
 test.describe('Adding product to shopping cart verification', () => {
-  let handToolsPage: HandToolsPage;
-  let productPage: Product;
-
-  test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandToolsPage(page);
-    productPage = new Product(page);
-
-    await handToolsPage.goto();
-  });
-
-  test('add product to shopping cart with quantity equal to 1', async () => {
+  test('add product to shopping cart with quantity equal to 1', async ({
+    handToolsPage,
+    productPage,
+  }) => {
     // Arrange
     const expectedNotificationMessageText = 'Product added to shopping cart';
 
@@ -27,7 +18,10 @@ test.describe('Adding product to shopping cart verification', () => {
     );
   });
 
-  test('add product to shopping cart with quantity greater than 1', async () => {
+  test('add product to shopping cart with quantity greater than 1', async ({
+    handToolsPage,
+    productPage,
+  }) => {
     // Arrange
     const expectedNotificationMessageText = 'Product added to shopping cart';
 
@@ -41,7 +35,10 @@ test.describe('Adding product to shopping cart verification', () => {
     );
   });
 
-  test('reject adding product to shopping cart with negative quantity', async () => {
+  test('reject adding product to shopping cart with negative quantity', async ({
+    handToolsPage,
+    productPage,
+  }) => {
     // Act
     await handToolsPage.firstProduct.click();
     await productPage.addToCart('-1');
@@ -50,7 +47,10 @@ test.describe('Adding product to shopping cart verification', () => {
     await expect(productPage.notificationMessageText).toBeHidden();
   });
 
-  test('reject adding product to shopping cart with quantity equal to 0', async () => {
+  test('reject adding product to shopping cart with quantity equal to 0', async ({
+    handToolsPage,
+    productPage,
+  }) => {
     // Act
     await handToolsPage.firstProduct.click();
     await productPage.addToCart('0');
@@ -59,7 +59,10 @@ test.describe('Adding product to shopping cart verification', () => {
     await expect(productPage.notificationMessageText).toBeHidden();
   });
 
-  test('reject adding out of stock product to shopping cart', async () => {
+  test('reject adding out of stock product to shopping cart', async ({
+    handToolsPage,
+    productPage,
+  }) => {
     // Act
     await handToolsPage.productOutOfStock.click();
 

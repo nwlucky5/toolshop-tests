@@ -1,15 +1,12 @@
 import { STORAGE_STATE } from '../../playwright.config';
-import { AccountPage } from '../../src/pages/account.page';
-import { LoginPage } from '../../src/pages/login.page';
+import { expect, test } from '../../src/fixtures/merge.fixture';
 import { testUser1 } from '../../src/test-data/test.data';
-import { expect, test } from '@playwright/test';
 
-test('Login with correct credentials', async ({ page }) => {
-  // Arrange
-  const loginPage = new LoginPage(page);
-  const accountPage = new AccountPage(page);
-  await loginPage.goto();
-
+test('Login with correct credentials', async ({
+  accountPage,
+  loginPage,
+  page,
+}) => {
   // Act
   await loginPage.login(testUser1);
 

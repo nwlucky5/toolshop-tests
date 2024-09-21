@@ -1,15 +1,9 @@
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 import { LoginUserModel } from '../../../src/models/user.model';
-import { LoginPage } from '../../../src/pages/login.page';
 import { testUser1 } from '../../../src/test-data/test.data';
-import test, { expect } from '@playwright/test';
 
 test.describe('Login verification', () => {
-  let loginPage: LoginPage;
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    await loginPage.goto();
-  });
-  test('Login with correct credentials', async () => {
+  test('Login with correct credentials', async ({ loginPage }) => {
     // Arrange
     const expectedUsername = 'Jack Howe';
 
@@ -19,7 +13,9 @@ test.describe('Login verification', () => {
     // Assert
     await expect(loginPage.mainMenu.userSubmenu).toHaveText(expectedUsername);
   });
-  test('Unsuccessful Login with no email and no password', async () => {
+  test('Unsuccessful Login with no email and no password', async ({
+    loginPage,
+  }) => {
     // Arrange
     const expectedEmailErrorText = 'Email is required';
     const expectedPasswordErrorText = 'Password is required';
@@ -37,7 +33,7 @@ test.describe('Login verification', () => {
       .soft(loginPage.passwordError)
       .toHaveText(expectedPasswordErrorText);
   });
-  test('Unsuccessful Login with no email', async () => {
+  test('Unsuccessful Login with no email', async ({ loginPage }) => {
     // Arrange
     const expectedEmailErrorText = 'Email is required';
     const loginUserData: LoginUserModel = {
@@ -51,7 +47,9 @@ test.describe('Login verification', () => {
     // Assert
     await expect(loginPage.emailError).toHaveText(expectedEmailErrorText);
   });
-  test('Unsuccessful Login with incorrectly formatted email', async () => {
+  test('Unsuccessful Login with incorrectly formatted email', async ({
+    loginPage,
+  }) => {
     // Arrange
     const expectedEmailErrorText = 'Email format is invalid';
     const loginUserData: LoginUserModel = {
@@ -65,7 +63,7 @@ test.describe('Login verification', () => {
     // Assert
     await expect(loginPage.emailError).toHaveText(expectedEmailErrorText);
   });
-  test('Unsuccessful Login with invalid email', async () => {
+  test('Unsuccessful Login with invalid email', async ({ loginPage }) => {
     // Arrange
     const expectedLoginErrorText = 'Invalid email or password';
     const loginUserData: LoginUserModel = {
@@ -79,7 +77,7 @@ test.describe('Login verification', () => {
     // Assert
     await expect(loginPage.loginError).toHaveText(expectedLoginErrorText);
   });
-  test('Unsuccessful Login with no password', async () => {
+  test('Unsuccessful Login with no password', async ({ loginPage }) => {
     // Arrange
     const expectedPasswordErrorText = 'Password is required';
     const loginUserData: LoginUserModel = {
@@ -93,7 +91,7 @@ test.describe('Login verification', () => {
     // Assert
     await expect(loginPage.passwordError).toHaveText(expectedPasswordErrorText);
   });
-  test('Unsuccessful Login with too short password', async () => {
+  test('Unsuccessful Login with too short password', async ({ loginPage }) => {
     // Arrange
     const expectedPasswordErrorText = 'Password length is invalid';
     const loginUserData: LoginUserModel = {
@@ -107,7 +105,7 @@ test.describe('Login verification', () => {
     // Assert
     await expect(loginPage.passwordError).toHaveText(expectedPasswordErrorText);
   });
-  test('Unsuccessful Login with incorrect password', async () => {
+  test('Unsuccessful Login with incorrect password', async ({ loginPage }) => {
     // Arrange
     const expectedLoginErrorText = 'Invalid email or password';
     const loginUserData: LoginUserModel = {

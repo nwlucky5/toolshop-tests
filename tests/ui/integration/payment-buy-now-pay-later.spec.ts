@@ -1,41 +1,26 @@
 import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
-import { BillingAddressModel } from '../../../src/models/billing-address.model';
-import { HandToolsPage } from '../../../src/pages/hand-tools.page';
-import { Product } from '../../../src/pages/product.page';
-import { CheckoutBillingAddressView } from '../../../src/views/checkout-billing-address.view';
-import { CheckoutCartView } from '../../../src/views/checkout-cart.view';
-import { CheckoutLoginView } from '../../../src/views/checkout-login.view';
-import { CheckoutPaymentView } from '../../../src/views/checkout-payment.view';
-import { expect, test } from '@playwright/test';
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 
 test.describe('Payment process verification for Buy Now Pay Later', () => {
-  let handToolsPage: HandToolsPage;
-  let productPage: Product;
-  let checkoutCartView: CheckoutCartView;
-  let checkoutLoginView: CheckoutLoginView;
-  let checkoutBillingAddressView: CheckoutBillingAddressView;
-  let checkoutPaymentView: CheckoutPaymentView;
-  let billingAddressData: BillingAddressModel;
+  test.beforeEach(
+    async ({
+      addProductToCart,
+      checkoutCartView,
+      checkoutLoginView,
+      checkoutBillingAddressView,
+    }) => {
+      const productPage = addProductToCart.productPage;
+      const billingAddressData = prepareRandomBillingAddress();
+      await productPage.mainMenu.shoppingCartIcon.click();
+      await checkoutCartView.proceedToCheckoutButton.click();
+      await checkoutLoginView.proceedToCheckoutButton.click();
+      await checkoutBillingAddressView.fillBillingAddress(billingAddressData);
+    },
+  );
 
-  test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandToolsPage(page);
-    productPage = new Product(page);
-    checkoutCartView = new CheckoutCartView(page);
-    checkoutLoginView = new CheckoutLoginView(page);
-    checkoutBillingAddressView = new CheckoutBillingAddressView(page);
-    checkoutPaymentView = new CheckoutPaymentView(page);
-    billingAddressData = prepareRandomBillingAddress();
-
-    await handToolsPage.goto();
-    await handToolsPage.firstProduct.click();
-    await productPage.addToCart();
-    await productPage.mainMenu.shoppingCartIcon.click();
-    await checkoutCartView.proceedToCheckoutButton.click();
-    await checkoutLoginView.proceedToCheckoutButton.click();
-    await checkoutBillingAddressView.fillBillingAddress(billingAddressData);
-  });
-
-  test('successful payment for Buy Now Pay Later @logged', async () => {
+  test('successful payment for Buy Now Pay Later @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Buy Now Pay Later';
     const monthlyInstallments = '6 Monthly Installments';
@@ -51,7 +36,9 @@ test.describe('Payment process verification for Buy Now Pay Later', () => {
     );
   });
 
-  test('unsuccessful payment for Buy Now Pay Later with unselected monthly installments option @logged', async () => {
+  test('unsuccessful payment for Buy Now Pay Later with unselected monthly installments option @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Buy Now Pay Later';
     const expectedMonthlyInstallmentsError =

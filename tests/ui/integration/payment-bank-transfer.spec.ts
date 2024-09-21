@@ -1,42 +1,27 @@
 import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
 import { prepareRandomBankTransfer } from '../../../src/factories/payment.factory';
-import { BillingAddressModel } from '../../../src/models/billing-address.model';
-import { HandToolsPage } from '../../../src/pages/hand-tools.page';
-import { Product } from '../../../src/pages/product.page';
-import { CheckoutBillingAddressView } from '../../../src/views/checkout-billing-address.view';
-import { CheckoutCartView } from '../../../src/views/checkout-cart.view';
-import { CheckoutLoginView } from '../../../src/views/checkout-login.view';
-import { CheckoutPaymentView } from '../../../src/views/checkout-payment.view';
-import { expect, test } from '@playwright/test';
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 
 test.describe('Payment process verification for Bank Transfer', () => {
-  let handToolsPage: HandToolsPage;
-  let productPage: Product;
-  let checkoutCartView: CheckoutCartView;
-  let checkoutLoginView: CheckoutLoginView;
-  let checkoutBillingAddressView: CheckoutBillingAddressView;
-  let checkoutPaymentView: CheckoutPaymentView;
-  let billingAddressData: BillingAddressModel;
+  test.beforeEach(
+    async ({
+      addProductToCart,
+      checkoutCartView,
+      checkoutLoginView,
+      checkoutBillingAddressView,
+    }) => {
+      const productPage = addProductToCart.productPage;
+      const billingAddressData = prepareRandomBillingAddress();
+      await productPage.mainMenu.shoppingCartIcon.click();
+      await checkoutCartView.proceedToCheckoutButton.click();
+      await checkoutLoginView.proceedToCheckoutButton.click();
+      await checkoutBillingAddressView.fillBillingAddress(billingAddressData);
+    },
+  );
 
-  test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandToolsPage(page);
-    productPage = new Product(page);
-    checkoutCartView = new CheckoutCartView(page);
-    checkoutLoginView = new CheckoutLoginView(page);
-    checkoutBillingAddressView = new CheckoutBillingAddressView(page);
-    checkoutPaymentView = new CheckoutPaymentView(page);
-    billingAddressData = prepareRandomBillingAddress();
-
-    await handToolsPage.goto();
-    await handToolsPage.firstProduct.click();
-    await productPage.addToCart();
-    await productPage.mainMenu.shoppingCartIcon.click();
-    await checkoutCartView.proceedToCheckoutButton.click();
-    await checkoutLoginView.proceedToCheckoutButton.click();
-    await checkoutBillingAddressView.fillBillingAddress(billingAddressData);
-  });
-
-  test('successful payment for bank transfer @logged', async () => {
+  test('successful payment for bank transfer @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Bank Transfer';
     const bankTransferData = prepareRandomBankTransfer();
@@ -52,7 +37,9 @@ test.describe('Payment process verification for Bank Transfer', () => {
     );
   });
 
-  test('unsuccessful payment for bank transfer with invalid bank name value @logged', async () => {
+  test('unsuccessful payment for bank transfer with invalid bank name value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Bank Transfer';
     const expectedBankNameError =
@@ -70,7 +57,9 @@ test.describe('Payment process verification for Bank Transfer', () => {
     );
   });
 
-  test('unsuccessful payment for bank transfer with invalid account name value @logged', async () => {
+  test('unsuccessful payment for bank transfer with invalid account name value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Bank Transfer';
     const expectedAccountNameError =
@@ -88,7 +77,9 @@ test.describe('Payment process verification for Bank Transfer', () => {
     );
   });
 
-  test('unsuccessful payment for bank transfer with invalid account number value @logged', async () => {
+  test('unsuccessful payment for bank transfer with invalid account number value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Bank Transfer';
     const expectedAccountNumberError = 'Account number must be numeric.';

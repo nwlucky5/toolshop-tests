@@ -1,30 +1,27 @@
 import { prepareRandomUser } from '../../../src/factories/user.factory';
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 import { RegisterUserModel } from '../../../src/models/register-model';
-import { LoginPage } from '../../../src/pages/login.page';
-import { RegisterPage } from '../../../src/pages/register.page';
-import { expect, test } from '@playwright/test';
 
 test.describe('Register form verification', () => {
-  let registerPage: RegisterPage;
-  let loginPage: LoginPage;
   let registerUserData: RegisterUserModel;
 
-  test.beforeEach(async ({ page }) => {
-    registerPage = new RegisterPage(page);
+  test.beforeEach(async () => {
     registerUserData = prepareRandomUser();
-    await registerPage.goto();
   });
-  test('Successful Register register with correct data', async ({ page }) => {
-    // Arrange
-    loginPage = new LoginPage(page);
-
+  test('Successful Register register with correct data', async ({
+    page,
+    loginPage,
+    registerPage,
+  }) => {
     // Act
     await registerPage.prepareRandomUser(registerUserData);
 
     // Assert
     await expect(page).toHaveURL(loginPage.url);
   });
-  test('Unsuccessful Register action without any of the required values', async () => {
+  test('Unsuccessful Register action without any of the required values', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.first_name = '';
     registerUserData.last_name = '';
@@ -51,12 +48,6 @@ test.describe('Register form verification', () => {
 
     // Act
     await registerPage.prepareRandomUser(registerUserData, '');
-    // registerUserData.dob = '';
-    // await registerPage.dateOfBirthPicker.fill(registerUserData.dob);
-    // registerUserData.country = '';
-    // await registerPage.countryDropdown.selectOption(registerUserData.country);
-    // registerUserData.phone = '';
-    // await registerPage.phoneInput.fill(registerUserData.phone);
 
     // Assert
     await expect
@@ -92,10 +83,11 @@ test.describe('Register form verification', () => {
       .toHaveText(expectedPasswordErrorText);
   });
 
-  test('Unsuccessful Register action without first name value', async () => {
+  test('Unsuccessful Register action without first name value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.first_name = '';
-
     const expectedFirstNameErrorText = 'First name is required';
 
     // Act
@@ -107,10 +99,11 @@ test.describe('Register form verification', () => {
     );
   });
 
-  test('Unsuccessful Register action without last name value', async () => {
+  test('Unsuccessful Register action without last name value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.last_name = '';
-
     const expectedLastNameErrorText = 'Last name is required';
 
     // Act
@@ -122,7 +115,9 @@ test.describe('Register form verification', () => {
     );
   });
 
-  test('Unsuccessful Register action without date of birth value', async () => {
+  test('Unsuccessful Register action without date of birth value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.dob = '';
     const expectedDateOfBirthErrorText = 'Date of Birth is required';
@@ -136,7 +131,9 @@ test.describe('Register form verification', () => {
     );
   });
 
-  test('Unsuccessful Register action without address value', async () => {
+  test('Unsuccessful Register action without address value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.address = '';
     const expectedAddressErrorText = 'Address is required';
@@ -150,7 +147,9 @@ test.describe('Register form verification', () => {
     );
   });
 
-  test('Unsuccessful Register action without postcode value', async () => {
+  test('Unsuccessful Register action without postcode value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.postcode = '';
     const expectedPostcodeErrorText = 'Postcode is required';
@@ -162,7 +161,9 @@ test.describe('Register form verification', () => {
       expectedPostcodeErrorText,
     );
   });
-  test('Unsuccessful Register action without city value', async () => {
+  test('Unsuccessful Register action without city value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.city = '';
     const expectedCityErrorText = 'City is required';
@@ -174,7 +175,9 @@ test.describe('Register form verification', () => {
     await expect(registerPage.cityError).toHaveText(expectedCityErrorText);
   });
 
-  test('Unsuccessful Register action without state value', async () => {
+  test('Unsuccessful Register action without state value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.state = '';
     const expectedStateErrorText = 'State is required';
@@ -186,7 +189,9 @@ test.describe('Register form verification', () => {
     await expect(registerPage.stateError).toHaveText(expectedStateErrorText);
   });
 
-  test('Unsuccessful Register action without country value', async () => {
+  test('Unsuccessful Register action without country value', async ({
+    registerPage,
+  }) => {
     // Arrange
     const expectedCountryErrorText = 'Country is required';
 
@@ -199,7 +204,9 @@ test.describe('Register form verification', () => {
     );
   });
 
-  test('Unsuccessful Register action without phone value', async () => {
+  test('Unsuccessful Register action without phone value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.phone = '';
     const expectedPhoneErrorText = 'Phone is required.';
@@ -213,7 +220,9 @@ test.describe('Register form verification', () => {
       .toHaveText(expectedPhoneErrorText);
   });
 
-  test('Unsuccessful Register action without email address value', async () => {
+  test('Unsuccessful Register action without email address value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.email = '';
     const expectedEmailAddressErrorText = 'Email is required';
@@ -227,7 +236,9 @@ test.describe('Register form verification', () => {
     );
   });
 
-  test('Unsuccessful Register action without password value', async () => {
+  test('Unsuccessful Register action without password value', async ({
+    registerPage,
+  }) => {
     // Arrange
     registerUserData.password = '';
     const expectedPasswordErrorText = 'Password is required';

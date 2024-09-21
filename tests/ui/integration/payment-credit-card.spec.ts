@@ -1,42 +1,27 @@
 import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
 import { prepareRandomCreditCard } from '../../../src/factories/payment.factory';
-import { BillingAddressModel } from '../../../src/models/billing-address.model';
-import { HandToolsPage } from '../../../src/pages/hand-tools.page';
-import { Product } from '../../../src/pages/product.page';
-import { CheckoutBillingAddressView } from '../../../src/views/checkout-billing-address.view';
-import { CheckoutCartView } from '../../../src/views/checkout-cart.view';
-import { CheckoutLoginView } from '../../../src/views/checkout-login.view';
-import { CheckoutPaymentView } from '../../../src/views/checkout-payment.view';
-import { expect, test } from '@playwright/test';
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 
 test.describe('Payment process verification for Credit Card', () => {
-  let handToolsPage: HandToolsPage;
-  let productPage: Product;
-  let checkoutCartView: CheckoutCartView;
-  let checkoutLoginView: CheckoutLoginView;
-  let checkoutBillingAddressView: CheckoutBillingAddressView;
-  let checkoutPaymentView: CheckoutPaymentView;
-  let billingAddressData: BillingAddressModel;
+  test.beforeEach(
+    async ({
+      addProductToCart,
+      checkoutCartView,
+      checkoutLoginView,
+      checkoutBillingAddressView,
+    }) => {
+      const productPage = addProductToCart.productPage;
+      const billingAddressData = prepareRandomBillingAddress();
+      await productPage.mainMenu.shoppingCartIcon.click();
+      await checkoutCartView.proceedToCheckoutButton.click();
+      await checkoutLoginView.proceedToCheckoutButton.click();
+      await checkoutBillingAddressView.fillBillingAddress(billingAddressData);
+    },
+  );
 
-  test.beforeEach(async ({ page }) => {
-    handToolsPage = new HandToolsPage(page);
-    productPage = new Product(page);
-    checkoutCartView = new CheckoutCartView(page);
-    checkoutLoginView = new CheckoutLoginView(page);
-    checkoutBillingAddressView = new CheckoutBillingAddressView(page);
-    checkoutPaymentView = new CheckoutPaymentView(page);
-    billingAddressData = prepareRandomBillingAddress();
-
-    await handToolsPage.goto();
-    await handToolsPage.firstProduct.click();
-    await productPage.addToCart();
-    await productPage.mainMenu.shoppingCartIcon.click();
-    await checkoutCartView.proceedToCheckoutButton.click();
-    await checkoutLoginView.proceedToCheckoutButton.click();
-    await checkoutBillingAddressView.fillBillingAddress(billingAddressData);
-  });
-
-  test('successful payment for credit card @logged', async () => {
+  test('successful payment for credit card @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const creditCardData = prepareRandomCreditCard();
@@ -52,7 +37,9 @@ test.describe('Payment process verification for Credit Card', () => {
     );
   });
 
-  test('unsuccessful payment for credit card with invalid credit card number value @logged', async () => {
+  test('unsuccessful payment for credit card with invalid credit card number value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedCreditCardNumberError = 'Invalid card number format.';
@@ -69,7 +56,9 @@ test.describe('Payment process verification for Credit Card', () => {
     );
   });
 
-  test('unsuccessful payment for credit card with invalid expiration date format @logged', async () => {
+  test('unsuccessful payment for credit card with invalid expiration date format @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedCreditCardNumberError = 'Invalid card number format.';
@@ -86,7 +75,9 @@ test.describe('Payment process verification for Credit Card', () => {
     );
   });
 
-  test('unsuccessful payment for credit card with past date value @logged', async () => {
+  test('unsuccessful payment for credit card with past date value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedCreditCardNumberError = 'Invalid card number format.';
@@ -103,7 +94,9 @@ test.describe('Payment process verification for Credit Card', () => {
     );
   });
 
-  test('unsuccessful payment for credit card with invalid expiration date value @logged', async () => {
+  test('unsuccessful payment for credit card with invalid expiration date value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedExpirationDateError = 'Invalid date format. Use MM/YYYY.';
@@ -120,7 +113,9 @@ test.describe('Payment process verification for Credit Card', () => {
     ).toHaveText(expectedExpirationDateError);
   });
 
-  test('unsuccessful payment for credit card with past expiration date value @logged', async () => {
+  test('unsuccessful payment for credit card with past expiration date value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedExpirationDateError =
@@ -138,7 +133,9 @@ test.describe('Payment process verification for Credit Card', () => {
     );
   });
 
-  test('unsuccessful payment for credit card with invalid CCV value @logged', async () => {
+  test('unsuccessful payment for credit card with invalid CVV value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedCVVError = 'CVV must be 3 or 4 digits.';
@@ -153,7 +150,9 @@ test.describe('Payment process verification for Credit Card', () => {
     await expect(checkoutPaymentView.CVVError).toHaveText(expectedCVVError);
   });
 
-  test('unsuccessful payment for credit card with too short CCV value @logged', async () => {
+  test('unsuccessful payment for credit card with too short CVV value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedCVVError = 'CVV must be 3 or 4 digits.';
@@ -168,7 +167,9 @@ test.describe('Payment process verification for Credit Card', () => {
     await expect(checkoutPaymentView.CVVError).toHaveText(expectedCVVError);
   });
 
-  test('unsuccessful payment for credit card with too long CCV value @logged', async () => {
+  test('unsuccessful payment for credit card with too long CVV value @logged', async ({
+    checkoutPaymentView,
+  }) => {
     // Arrange
     const paymentMethod = 'Credit Card';
     const expectedCVVError = 'CVV must be 3 or 4 digits.';

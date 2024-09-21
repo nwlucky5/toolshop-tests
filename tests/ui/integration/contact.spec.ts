@@ -1,18 +1,16 @@
 import { prepareRandomContactForm } from '../../../src/factories/contact-form.factory';
+import { expect, test } from '../../../src/fixtures/merge.fixture';
 import { ContactFormModel } from '../../../src/models/contact-form.model';
-import { ContactPage } from '../../../src/pages/contact.page';
-import { expect, test } from '@playwright/test';
 
 test.describe('Contact form verification', () => {
-  let contactPage: ContactPage;
   let contactFormData: ContactFormModel;
 
-  test.beforeEach(async ({ page }) => {
-    contactPage = new ContactPage(page);
+  test.beforeEach(async () => {
     contactFormData = prepareRandomContactForm();
-    await contactPage.goto();
   });
-  test('Successful Contact form submit without attachment', async () => {
+  test('Successful Contact form submit without attachment', async ({
+    contactPage,
+  }) => {
     // Arrange
     const expectedConformationMessageText =
       'Thanks for your message! We will contact you shortly.';
@@ -25,7 +23,9 @@ test.describe('Contact form verification', () => {
       expectedConformationMessageText,
     );
   });
-  test('Successful Contact form submit with ".txt" attachment', async () => {
+  test('Successful Contact form submit with ".txt" attachment', async ({
+    contactPage,
+  }) => {
     // Arrange
     const attachmentRelativePath = 'fixtures/attachment1.txt';
     const expectedConformationMessageText =
@@ -40,7 +40,9 @@ test.describe('Contact form verification', () => {
       expectedConformationMessageText,
     );
   });
-  test('Unsuccessful Contact form submit with ".txt" attachment having content', async () => {
+  test('Unsuccessful Contact form submit with ".txt" attachment having content', async ({
+    contactPage,
+  }) => {
     // Arrange
     const attachmentRelativePath = 'fixtures/attachment2.txt';
     const expectedAttachmentErrorText = 'File should be empty.';
@@ -54,13 +56,14 @@ test.describe('Contact form verification', () => {
       expectedAttachmentErrorText,
     );
   });
-  test('Unsuccessful Contact form submit with ".jpg" attachment', async () => {
+  test('Unsuccessful Contact form submit with ".jpg" attachment', async ({
+    contactPage,
+  }) => {
     // Arrange
     const attachmentRelativePath = 'fixtures/image1.jpg';
     const expectedAttachmentErrorText = 'File should be empty.';
 
     // Act
-    // await contactPage.goto();
     await contactPage.addAttachment(attachmentRelativePath);
     await contactPage.populateAndSendContactForm(contactFormData);
 
@@ -69,7 +72,9 @@ test.describe('Contact form verification', () => {
       expectedAttachmentErrorText,
     );
   });
-  test('Unsuccessful Contact form submit without any of the required values', async () => {
+  test('Unsuccessful Contact form submit without any of the required values', async ({
+    contactPage,
+  }) => {
     // Arrange
     contactFormData.firstName = '';
     contactFormData.lastName = '';
@@ -97,7 +102,9 @@ test.describe('Contact form verification', () => {
     await expect(contactPage.subjectError).toHaveText(expectedSubjectErrorText);
     await expect(contactPage.messageError).toHaveText(expectedMessageErrorText);
   });
-  test('Unsuccessful submit of Contact form with no message value', async () => {
+  test('Unsuccessful submit of Contact form with no message value', async ({
+    contactPage,
+  }) => {
     // Arrange
     contactFormData.message = '';
     const expectedMessageErrorText = 'Message is required';
@@ -108,7 +115,9 @@ test.describe('Contact form verification', () => {
     // Assert
     await expect(contactPage.messageError).toHaveText(expectedMessageErrorText);
   });
-  test('Unsuccessful submit of Contact form with message field having 49 characters', async () => {
+  test('Unsuccessful submit of Contact form with message field having 49 characters', async ({
+    contactPage,
+  }) => {
     // Arrange
     const contactFormData = prepareRandomContactForm(49);
     const expectedMessageErrorText = 'Message must be minimal 50 characters';
@@ -119,7 +128,9 @@ test.describe('Contact form verification', () => {
     // Assert
     await expect(contactPage.messageError).toHaveText(expectedMessageErrorText);
   });
-  test('Unsuccessful submit of Contact form with no email value', async () => {
+  test('Unsuccessful submit of Contact form with no email value', async ({
+    contactPage,
+  }) => {
     // Arrange
     contactFormData.emailAddress = '';
     const expectedEmailAddressErrorText = 'Email is required';
@@ -132,7 +143,9 @@ test.describe('Contact form verification', () => {
       expectedEmailAddressErrorText,
     );
   });
-  test('Unsuccessful submit of Contact form with incorrectly formatted email', async () => {
+  test('Unsuccessful submit of Contact form with incorrectly formatted email', async ({
+    contactPage,
+  }) => {
     // Arrange
     contactFormData.emailAddress = 'email';
     const expectedEmailErrorText = 'Email format is invalid';
@@ -145,7 +158,9 @@ test.describe('Contact form verification', () => {
       expectedEmailErrorText,
     );
   });
-  test('Unsuccessful submit of Contact form with no first name value', async () => {
+  test('Unsuccessful submit of Contact form with no first name value', async ({
+    contactPage,
+  }) => {
     // Arrange
     contactFormData.firstName = '';
     const expectedFirstNameErrorText = 'First name is required';
@@ -158,7 +173,9 @@ test.describe('Contact form verification', () => {
       expectedFirstNameErrorText,
     );
   });
-  test('Unsuccessful submit of Contact form with no last name value', async () => {
+  test('Unsuccessful submit of Contact form with no last name value', async ({
+    contactPage,
+  }) => {
     // Arrange
     contactFormData.lastName = '';
     const expectedLastNameErrorText = 'Last name is required';
@@ -171,7 +188,9 @@ test.describe('Contact form verification', () => {
       expectedLastNameErrorText,
     );
   });
-  test('Unsuccessful submit of Contact form with no subject value', async () => {
+  test('Unsuccessful submit of Contact form with no subject value', async ({
+    contactPage,
+  }) => {
     // Arrange
     const expectedSubjectErrorText = 'Subject is required';
 
