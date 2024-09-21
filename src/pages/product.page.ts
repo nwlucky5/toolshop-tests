@@ -1,14 +1,17 @@
 import { MainMenuComponent } from '../components/main-menu.component';
+import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
-export class Product {
+export class ProductPage extends BasePage {
   addToCartButton = this.page.locator('[data-test="add-to-cart"]');
   quantityField = this.page.locator('[data-test="quantity"]');
   increaseQuantityButton = this.page.locator('[data-test="increase-quantity"]');
   decreaseQuantityButton = this.page.locator('[data-test="decrease-quantity"]');
   notificationMessageText = this.page.getByLabel('Product added to shopping');
 
-  constructor(private page: Page) {}
+  constructor(page: Page) {
+    super(page);
+  }
 
   mainMenu = new MainMenuComponent(this.page);
 

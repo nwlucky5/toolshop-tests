@@ -1,8 +1,9 @@
 import { MainMenuComponent } from '../components/main-menu.component';
 import { ContactFormModel } from '../models/contact-form.model';
+import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
-export class ContactPage {
+export class ContactPage extends BasePage {
   url = '/contact';
   contactTitle = this.page.getByRole('heading', { name: 'Contact' });
   firstNameInput = this.page.locator('[data-test="first-name"]');
@@ -20,13 +21,11 @@ export class ContactPage {
   sendButton = this.page.locator('[data-test="contact-submit"]');
   conformationMessageText = this.page.locator('.alert-success');
 
-  constructor(private page: Page) {}
+  constructor(page: Page) {
+    super(page);
+  }
 
   mainMenu = new MainMenuComponent(this.page);
-
-  async goto(): Promise<void> {
-    await this.page.goto(this.url);
-  }
 
   async populateAndSendContactForm(
     contactFormData: ContactFormModel,

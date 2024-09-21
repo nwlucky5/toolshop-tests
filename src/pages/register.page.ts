@@ -1,8 +1,9 @@
 import { MainMenuComponent } from '../components/main-menu.component';
 import { RegisterUserModel } from '../models/register-model';
+import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
-export class RegisterPage {
+export class RegisterPage extends BasePage {
   url = '/auth/register';
   registerTitle = this.page.getByRole('heading', {
     name: 'Customer registration',
@@ -31,7 +32,9 @@ export class RegisterPage {
   emailError = this.page.locator('[data-test="email-error"]');
   passwordError = this.page.locator('[data-test="password-error"]');
 
-  constructor(private page: Page) {}
+  constructor(page: Page) {
+    super(page);
+  }
 
   mainMenu = new MainMenuComponent(this.page);
 
