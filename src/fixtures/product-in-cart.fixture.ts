@@ -1,6 +1,6 @@
-import { pageObjectTest } from '../fixtures/page-object.fixture';
-import { HandToolsPage } from '../pages/hand-tools.page';
-import { ProductPage } from '../pages/product.page';
+import { pageObjectTest } from '@_src/fixtures/page-object.fixture';
+import { HandToolsPage } from '@_src/pages/hand-tools.page';
+import { ProductPage } from '@_src/pages/product.page';
 
 interface ProductInCartContext {
   handToolsPage: HandToolsPage;

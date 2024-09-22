@@ -1,4 +1,4 @@
-import { BillingAddressModel } from '../models/billing-address.model';
+import { BillingAddressModel } from '@_src/models/billing-address.model';
 import { Page } from '@playwright/test';
 
 export class CheckoutBillingAddressView {

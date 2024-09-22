@@ -1,4 +1,4 @@
-import { LoginUserModel } from '../models/user.model';
+import { LoginUserModel } from '@_src/models/user.model';
 import { Page } from '@playwright/test';
 
 export class CheckoutLoginView {

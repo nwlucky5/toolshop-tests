@@ -1,12 +1,12 @@
-import { CheckoutPage } from '../pages/checkout.page';
-import { ContactPage } from '../pages/contact.page';
-import { HandToolsPage } from '../pages/hand-tools.page';
-import { HomePage } from '../pages/home.page';
-import { LoginPage } from '../pages/login.page';
-import { OtherPage } from '../pages/other.page';
-import { PowerToolsPage } from '../pages/power-tools.page';
-import { RentalsPage } from '../pages/rentals.page';
-import { SpecialToolsPage } from '../pages/special-tools.page';
+import { CheckoutPage } from '@_src/pages/checkout.page';
+import { ContactPage } from '@_src/pages/contact.page';
+import { HandToolsPage } from '@_src/pages/hand-tools.page';
+import { HomePage } from '@_src/pages/home.page';
+import { LoginPage } from '@_src/pages/login.page';
+import { OtherPage } from '@_src/pages/other.page';
+import { PowerToolsPage } from '@_src/pages/power-tools.page';
+import { RentalsPage } from '@_src/pages/rentals.page';
+import { SpecialToolsPage } from '@_src/pages/special-tools.page';
 import { Page } from '@playwright/test';
 
 export class MainMenuComponent {

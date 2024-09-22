@@ -1,4 +1,4 @@
-import { MainMenuComponent } from '../components/main-menu.component';
+import { MainMenuComponent } from '@_src/components/main-menu.component';
 import { Page } from '@playwright/test';
 
 export class CategoryPage {

@@ -1,19 +1,19 @@
-import { AccountPage } from '../../src/pages/account.page';
-import { ContactPage } from '../../src/pages/contact.page';
-import { HandToolsPage } from '../../src/pages/hand-tools.page';
-import { HomePage } from '../../src/pages/home.page';
-import { LoginPage } from '../../src/pages/login.page';
-import { OtherPage } from '../../src/pages/other.page';
-import { PowerToolsPage } from '../../src/pages/power-tools.page';
-import { ProductPage } from '../../src/pages/product.page';
-import { RegisterPage } from '../../src/pages/register.page';
-import { RentalsPage } from '../../src/pages/rentals.page';
-import { SpecialToolsPage } from '../../src/pages/special-tools.page';
-import { CheckoutBillingAddressView } from '../../src/views/checkout-billing-address.view';
-import { CheckoutPage } from '../pages/checkout.page';
-import { CheckoutCartView } from '../views/checkout-cart.view';
-import { CheckoutLoginView } from '../views/checkout-login.view';
-import { CheckoutPaymentView } from '../views/checkout-payment.view';
+import { AccountPage } from '@_src/pages/account.page';
+import { CheckoutPage } from '@_src/pages/checkout.page';
+import { ContactPage } from '@_src/pages/contact.page';
+import { HandToolsPage } from '@_src/pages/hand-tools.page';
+import { HomePage } from '@_src/pages/home.page';
+import { LoginPage } from '@_src/pages/login.page';
+import { OtherPage } from '@_src/pages/other.page';
+import { PowerToolsPage } from '@_src/pages/power-tools.page';
+import { ProductPage } from '@_src/pages/product.page';
+import { RegisterPage } from '@_src/pages/register.page';
+import { RentalsPage } from '@_src/pages/rentals.page';
+import { SpecialToolsPage } from '@_src/pages/special-tools.page';
+import { CheckoutBillingAddressView } from '@_src/views/checkout-billing-address.view';
+import { CheckoutCartView } from '@_src/views/checkout-cart.view';
+import { CheckoutLoginView } from '@_src/views/checkout-login.view';
+import { CheckoutPaymentView } from '@_src/views/checkout-payment.view';
 import { test as baseTest } from '@playwright/test';
 
 interface Pages {

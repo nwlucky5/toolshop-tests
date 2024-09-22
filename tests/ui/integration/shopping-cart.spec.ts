@@ -1,4 +1,4 @@
-import { expect, test } from '../../../src/fixtures/merge.fixture';
+import { expect, test } from '@_src/fixtures/merge.fixture';
 
 test.describe('Adding product to shopping cart verification', () => {
   test('add product to shopping cart with quantity equal to 1', async ({

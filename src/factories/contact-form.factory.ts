@@ -1,4 +1,4 @@
-import { ContactFormModel } from '../models/contact-form.model';
+import { ContactFormModel } from '@_src/models/contact-form.model';
 import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomContactForm(

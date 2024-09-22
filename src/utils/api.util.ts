@@ -1,5 +1,5 @@
-import { prepareRandomUser } from '../factories/user.factory';
-import { testUser2 } from '../test-data/test.data';
+import { prepareRandomUser } from '@_src/factories/user.factory';
+import { testUser2 } from '@_src/test-data/test.data';
 import { APIRequestContext } from '@playwright/test';
 
 export interface RegisterUserPayload {

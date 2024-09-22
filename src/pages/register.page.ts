@@ -1,6 +1,6 @@
-import { MainMenuComponent } from '../components/main-menu.component';
-import { RegisterUserModel } from '../models/register-model';
 import { BasePage } from './base.page';
+import { MainMenuComponent } from '@_src/components/main-menu.component';
+import { RegisterUserModel } from '@_src/models/register-model';
 import { Page } from '@playwright/test';
 
 export class RegisterPage extends BasePage {

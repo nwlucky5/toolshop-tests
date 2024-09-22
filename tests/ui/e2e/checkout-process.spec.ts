@@ -1,7 +1,7 @@
-import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
-import { prepareRandomCreditCard } from '../../../src/factories/payment.factory';
-import { expect, test } from '../../../src/fixtures/merge.fixture';
-import { testUser1 } from '../../../src/test-data/test.data';
+import { prepareRandomBillingAddress } from '@_src/factories/billing-address.factory';
+import { prepareRandomCreditCard } from '@_src/factories/payment.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
+import { testUser1 } from '@_src/test-data/test.data';
 
 test.describe('Checkout process verification', () => {
   test('successful checkout for logged user @logged', async ({
@@ -84,7 +84,7 @@ test.describe('Checkout process verification', () => {
     });
   });
 
-  test('successful checkout for registered non-logged user', async ({
+  test('successful checkout for non-logged user', async ({
     page,
     checkoutPage,
     checkoutCartView,

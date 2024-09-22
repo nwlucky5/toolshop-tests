@@ -2,7 +2,7 @@ import {
   BankTransferModel,
   CreditCardModel,
   GiftCardModel,
-} from '../models/payment.model';
+} from '@_src/models/payment.model';
 import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomBankTransfer(): BankTransferModel {

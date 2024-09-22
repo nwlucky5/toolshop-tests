@@ -1,5 +1,5 @@
-import { prepareRandomBillingAddress } from '../../../src/factories/billing-address.factory';
-import { expect, test } from '../../../src/fixtures/merge.fixture';
+import { prepareRandomBillingAddress } from '@_src/factories/billing-address.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
 
 test.describe('Payment process verification for Buy Now Pay Later', () => {
   test.beforeEach(

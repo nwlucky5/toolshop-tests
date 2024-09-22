@@ -1,4 +1,4 @@
-import { BillingAddressModel } from '../models/billing-address.model';
+import { BillingAddressModel } from '@_src/models/billing-address.model';
 import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomBillingAddress(): BillingAddressModel {

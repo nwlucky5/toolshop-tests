@@ -2,7 +2,7 @@ import {
   BankTransferModel,
   CreditCardModel,
   GiftCardModel,
-} from '../models/payment.model';
+} from '@_src/models/payment.model';
 import { Page } from '@playwright/test';
 
 export class CheckoutPaymentView {

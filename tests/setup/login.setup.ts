@@ -1,6 +1,6 @@
 import { STORAGE_STATE } from '../../playwright.config';
-import { expect, test } from '../../src/fixtures/merge.fixture';
-import { testUser1 } from '../../src/test-data/test.data';
+import { expect, test } from '@_src/fixtures/merge.fixture';
+import { testUser1 } from '@_src/test-data/test.data';
 
 test('Login with correct credentials', async ({
   accountPage,
