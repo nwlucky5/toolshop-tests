@@ -74,3 +74,5 @@ export class MainMenuComponent {
     return new CheckoutPage(this.page);
   }
 }
+
+//
