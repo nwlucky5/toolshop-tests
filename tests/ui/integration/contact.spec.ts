@@ -1,6 +1,6 @@
-import { prepareRandomContactForm } from '@_src/factories/contact-form.factory';
-import { expect, test } from '@_src/fixtures/merge.fixture';
-import { ContactFormModel } from '@_src/models/contact-form.model';
+import { prepareRandomContactForm } from '@_src/ui/factories/contact-form.factory';
+import { expect, test } from '@_src/ui/fixtures/merge.fixture';
+import { ContactFormModel } from '@_src/ui/models/contact-form.model';
 
 test.describe('Contact form verification', () => {
   let contactFormData: ContactFormModel;

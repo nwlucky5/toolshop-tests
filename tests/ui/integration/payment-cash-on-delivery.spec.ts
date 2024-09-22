@@ -1,5 +1,5 @@
-import { prepareRandomBillingAddress } from '@_src/factories/billing-address.factory';
-import { expect, test } from '@_src/fixtures/merge.fixture';
+import { prepareRandomBillingAddress } from '@_src/ui/factories/billing-address.factory';
+import { expect, test } from '@_src/ui/fixtures/merge.fixture';
 
 test.describe('Payment process verification for Cash on Delivery', () => {
   test.beforeEach(

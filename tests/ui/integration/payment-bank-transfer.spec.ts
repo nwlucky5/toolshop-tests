@@ -1,6 +1,6 @@
-import { prepareRandomBillingAddress } from '@_src/factories/billing-address.factory';
-import { prepareRandomBankTransfer } from '@_src/factories/payment.factory';
-import { expect, test } from '@_src/fixtures/merge.fixture';
+import { prepareRandomBillingAddress } from '@_src/ui/factories/billing-address.factory';
+import { prepareRandomBankTransfer } from '@_src/ui/factories/payment.factory';
+import { expect, test } from '@_src/ui/fixtures/merge.fixture';
 
 test.describe('Payment process verification for Bank Transfer', () => {
   test.beforeEach(

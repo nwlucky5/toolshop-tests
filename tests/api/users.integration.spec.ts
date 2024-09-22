@@ -5,7 +5,7 @@ import {
   getAdminAuthorizationHeader,
   getUserAuthorizationHeader,
   prepareUserPayload,
-} from '@_src/utils/api.util';
+} from '@_src/api/utils/api.util';
 import test, { APIResponse, expect } from '@playwright/test';
 
 test.describe('Verify user CRUD operations @crud', () => {
