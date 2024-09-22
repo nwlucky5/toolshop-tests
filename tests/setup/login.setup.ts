@@ -1,4 +1,4 @@
-import { STORAGE_STATE } from '../../playwright.config';
+import { STORAGE_STATE } from '@_pw-config';
 import { expect, test } from '@_src/fixtures/merge.fixture';
 import { testUser1 } from '@_src/test-data/test.data';
 
