@@ -1,6 +1,6 @@
-import { BasePage } from './base.page';
 import { MainMenuComponent } from '@_src/components/main-menu.component';
 import { ContactFormModel } from '@_src/models/contact-form.model';
+import { BasePage } from '@_src/pages/base.page';
 import { Page } from '@playwright/test';
 
 export class ContactPage extends BasePage {
