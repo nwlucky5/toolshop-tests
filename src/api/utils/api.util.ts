@@ -1,4 +1,3 @@
-import { prepareRandomUser } from '@_src/ui/factories/user.factory';
 import { testUser2 } from '@_src/ui/test-data/test.data';
 import { APIRequestContext } from '@playwright/test';
 
@@ -25,24 +24,6 @@ export const apiLinks = {
   registerUrl: 'https://api.practicesoftwaretesting.com/users/register',
   loginUrl: 'https://api.practicesoftwaretesting.com/users/login',
 };
-
-export function prepareUserPayload(): RegisterUserPayload {
-  const randomUserData = prepareRandomUser();
-  const userData = {
-    first_name: randomUserData.first_name,
-    last_name: randomUserData.last_name,
-    address: randomUserData.last_name,
-    city: randomUserData.city,
-    state: randomUserData.state,
-    country: randomUserData.country,
-    postcode: randomUserData.postcode,
-    phone: randomUserData.phone,
-    dob: randomUserData.dob,
-    password: randomUserData.password,
-    email: randomUserData.email,
-  };
-  return userData;
-}
 
 export async function getAdminAuthorizationHeader(
   request: APIRequestContext,

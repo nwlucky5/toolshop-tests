@@ -1,10 +1,10 @@
+import { prepareUserPayload } from '@_src/api/factories/user-payload.api.factory';
 import {
   Headers,
   RegisterUserPayload,
   apiLinks,
   getAdminAuthorizationHeader,
   getUserAuthorizationHeader,
-  prepareUserPayload,
 } from '@_src/api/utils/api.util';
 import test, { APIResponse, expect } from '@playwright/test';
 
