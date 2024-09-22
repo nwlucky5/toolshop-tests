@@ -1,11 +1,9 @@
+import { getAdminAuthorizationHeader } from '@_src/api/factories/admin-authorization-header.api.factory';
+import { getUserAuthorizationHeader } from '@_src/api/factories/user-authorization-header.api.factory';
 import { prepareUserPayload } from '@_src/api/factories/user-payload.api.factory';
-import {
-  Headers,
-  RegisterUserPayload,
-  apiLinks,
-  getAdminAuthorizationHeader,
-  getUserAuthorizationHeader,
-} from '@_src/api/utils/api.util';
+import { Headers } from '@_src/api/models/headers.api.models';
+import { RegisterUserPayload } from '@_src/api/models/register.api.models';
+import { apiUrls } from '@_src/api/utils/api.util';
 import test, { APIResponse, expect } from '@playwright/test';
 
 test.describe('Verify user CRUD operations @crud', () => {
@@ -21,7 +19,7 @@ test.describe('Verify user CRUD operations @crud', () => {
     'should create  and login as a new user',
     async ({ request }) => {
       userData = prepareUserPayload();
-      responseUser = await request.post(apiLinks.registerUrl, {
+      responseUser = await request.post(apiUrls.registerUrl, {
         data: userData,
       });
       // assert user exist
@@ -30,7 +28,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
       const userJson = await responseUser.json();
       const responseUserCreated = await request.get(
-        `${apiLinks.usersUrl}/${userJson.id}`,
+        `${apiUrls.usersUrl}/${userJson.id}`,
         { headers: headersAdmin },
       );
 
@@ -65,7 +63,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Act
     const responseUserUpdated = await request.put(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       {
         headers: headersAdmin,
         data: userDataUpdated,
@@ -81,7 +79,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Assert check updated user
     const responseUserUpdatedRetrieval = await request.get(
-      `${apiLinks.usersUrl}/${userJson.id}`,
+      `${apiUrls.usersUrl}/${userJson.id}`,
       { headers: headersAdmin },
     );
     const userUpdatedRetrievalJson = await responseUserUpdatedRetrieval.json();
@@ -119,7 +117,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Act
     const responseUserUpdated = await request.put(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       {
         headers,
         data: userDataUpdated,
@@ -135,7 +133,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Assert check updated user
     const responseUserUpdatedRetrieval = await request.get(
-      `${apiLinks.usersUrl}/${userJson.id}`,
+      `${apiUrls.usersUrl}/${userJson.id}`,
       { headers: headersAdmin },
     );
     const userUpdatedRetrievalJson = await responseUserUpdatedRetrieval.json();
@@ -171,7 +169,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Act
     const responseUserUpdated = await request.put(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       {
         data: userDataUpdated,
       },
@@ -186,7 +184,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Assert check updated user
     const responseUserUpdatedRetrieval = await request.get(
-      `${apiLinks.usersUrl}/${userJson.id}`,
+      `${apiUrls.usersUrl}/${userJson.id}`,
       { headers: headersAdmin },
     );
     const userUpdatedRetrievalJson = await responseUserUpdatedRetrieval.json();
@@ -215,7 +213,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Act
     const responseUserDeleted = await request.delete(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       {
         headers: headersAdmin,
       },
@@ -230,7 +228,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Assert check deleted user
     const responseUserDeletedRetrieval = await request.get(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       { headers: headersAdmin },
     );
     const expectedDeletedUserStatusCode = 404;
@@ -250,7 +248,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Act
     const responseUserDeleted = await request.delete(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       {
         headers,
       },
@@ -265,7 +263,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Assert check not deleted user
     const responseUserDeletedRetrieval = await request.get(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       { headers: headersAdmin },
     );
     const expectedDeletedUserStatusCode = 200;
@@ -285,7 +283,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Act
     const responseUserDeleted = await request.delete(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
     );
 
     // Assert
@@ -297,7 +295,7 @@ test.describe('Verify user CRUD operations @crud', () => {
 
     // Assert check not deleted user
     const responseUserDeletedRetrieval = await request.get(
-      `${apiLinks.usersUrl}/${userId}`,
+      `${apiUrls.usersUrl}/${userId}`,
       { headers: headersAdmin },
     );
     const expectedDeletedUserStatusCode = 200;

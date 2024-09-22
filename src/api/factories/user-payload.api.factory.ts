@@ -1,4 +1,4 @@
-import { RegisterUserPayload } from '@_src/api/utils/api.util';
+import { RegisterUserPayload } from '@_src/api/models/register.api.models';
 import { prepareRandomUser } from '@_src/ui/factories/user.factory';
 
 export function prepareUserPayload(): RegisterUserPayload {
