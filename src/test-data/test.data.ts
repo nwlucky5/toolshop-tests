@@ -1,10 +1,10 @@
-import { LoginUserModel } from '@_src/models/user.model';
 import {
   ADMIN_USER_EMAIL,
   ADMIN_USER_PASSWORD,
   USER_EMAIL,
   USER_PASSWORD,
-} from 'config/env.config';
+} from '@_config/env.config';
+import { LoginUserModel } from '@_src/models/user.model';
 
 export const testUser1: LoginUserModel = {
   userEmail: USER_EMAIL,
