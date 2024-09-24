@@ -1,5 +1,6 @@
 import { getAdminAuthorizationHeader } from '@_src/api/factories/admin-authorization-header.api.factory';
 import { getUserAuthorizationHeader } from '@_src/api/factories/user-authorization-header.api.factory';
+import { createUserWithApi } from '@_src/api/factories/user-create.api.factory';
 import { prepareUserPayload } from '@_src/api/factories/user-payload.api.factory';
 import { Headers } from '@_src/api/models/headers.api.models';
 import { RegisterUserPayload } from '@_src/api/models/register.api.models';
@@ -16,27 +17,10 @@ test.describe('Verify user CRUD operations @crud', () => {
   });
 
   test.beforeEach(
-    'should create  and login as a new user',
+    'should create and login as a new user',
     async ({ request }) => {
       userData = prepareUserPayload();
-      responseUser = await request.post(apiUrls.registerUrl, {
-        data: userData,
-      });
-      // assert user exist
-      const expectedUserRegistrationStatusCode = 201;
-      expect(responseUser.status()).toBe(expectedUserRegistrationStatusCode);
-
-      const userJson = await responseUser.json();
-      const responseUserCreated = await request.get(
-        `${apiUrls.usersUrl}/${userJson.id}`,
-        { headers: headersAdmin },
-      );
-
-      const expectedUserRetrievalStatusCode = 200;
-      expect(
-        responseUserCreated.status(),
-        `Expected status: ${expectedUserRetrievalStatusCode} and observed: ${responseUserCreated.status()}`,
-      ).toBe(expectedUserRetrievalStatusCode);
+      responseUser = await createUserWithApi(request, headersAdmin, userData);
 
       // login as created user
       const loginData = {
@@ -51,6 +35,30 @@ test.describe('Verify user CRUD operations @crud', () => {
       );
     },
   );
+
+  test('should create user without authorization', async () => {
+    // Arrange
+    const expectedStatusCode = 201;
+
+    // Assert
+    const actualResponseStatus = responseUser.status();
+    expect(
+      actualResponseStatus,
+      `expect status code ${expectedStatusCode}, and received ${actualResponseStatus}`,
+    ).toBe(expectedStatusCode);
+
+    const userJson = await responseUser.json();
+    expect.soft(userJson.first_name).toEqual(userData.first_name);
+    expect.soft(userJson.last_name).toEqual(userData.last_name);
+    expect.soft(userJson.address).toEqual(userData.address);
+    expect.soft(userJson.city).toEqual(userData.city);
+    expect.soft(userJson.state).toEqual(userData.state);
+    expect.soft(userJson.country).toEqual(userData.country);
+    expect.soft(userJson.postcode).toEqual(userData.postcode);
+    expect.soft(userJson.phone).toEqual(userData.phone);
+    expect.soft(userJson.dob).toEqual(userData.dob);
+    expect.soft(userJson.email).toEqual(userData.email);
+  });
 
   test('should update user when logged in as admin user', async ({
     request,
@@ -273,7 +281,7 @@ test.describe('Verify user CRUD operations @crud', () => {
     ).toBe(expectedDeletedUserStatusCode);
   });
 
-  test('should not delete a user using non logged user', async ({
+  test('should not delete a user without authorization', async ({
     request,
   }) => {
     // Arrange
