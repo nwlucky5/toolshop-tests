@@ -1,3 +1,4 @@
+import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api';
 import { getAdminAuthorizationHeader } from '@_src/api/factories/admin-authorization-header.api.factory';
 import { getUserAuthorizationHeader } from '@_src/api/factories/user-authorization-header.api.factory';
 import { createUserWithApi } from '@_src/api/factories/user-create.api.factory';
@@ -21,16 +22,9 @@ test.describe('Verify user CRUD operations @crud', () => {
     async ({ request }) => {
       userData = prepareUserPayload();
       responseUser = await createUserWithApi(request, headersAdmin, userData);
-
-      // login as created user
-      const loginData = {
-        email: userData.email,
-        password: userData.password,
-      };
-
       headers = await getUserAuthorizationHeader(
-        loginData.email,
-        loginData.password,
+        userData.email,
+        userData.password,
         request,
       );
     },
@@ -39,15 +33,15 @@ test.describe('Verify user CRUD operations @crud', () => {
   test('should create user without authorization', async () => {
     // Arrange
     const expectedStatusCode = 201;
+    const actualResponseStatus = responseUser.status();
+    const userJson = await responseUser.json();
 
     // Assert
-    const actualResponseStatus = responseUser.status();
     expect(
       actualResponseStatus,
       `expect status code ${expectedStatusCode}, and received ${actualResponseStatus}`,
     ).toBe(expectedStatusCode);
 
-    const userJson = await responseUser.json();
     expect.soft(userJson.first_name).toEqual(userData.first_name);
     expect.soft(userJson.last_name).toEqual(userData.last_name);
     expect.soft(userJson.address).toEqual(userData.address);
@@ -86,32 +80,26 @@ test.describe('Verify user CRUD operations @crud', () => {
     ).toBe(expectedStatusCode);
 
     // Assert check updated user
-    const responseUserUpdatedRetrieval = await request.get(
+    const responseUserUpdatedGet = await request.get(
       `${apiUrls.usersUrl}/${userJson.id}`,
       { headers: headersAdmin },
     );
-    const userUpdatedRetrievalJson = await responseUserUpdatedRetrieval.json();
+    const userUpdatedGetJson = await responseUserUpdatedGet.json();
 
     expect
-      .soft(userUpdatedRetrievalJson.first_name)
+      .soft(userUpdatedGetJson.first_name)
       .toEqual(userDataUpdated.first_name);
     expect
-      .soft(userUpdatedRetrievalJson.last_name)
+      .soft(userUpdatedGetJson.last_name)
       .toEqual(userDataUpdated.last_name);
-    expect
-      .soft(userUpdatedRetrievalJson.address)
-      .toEqual(userDataUpdated.address);
-    expect.soft(userUpdatedRetrievalJson.city).toEqual(userDataUpdated.city);
-    expect.soft(userUpdatedRetrievalJson.state).toEqual(userDataUpdated.state);
-    expect
-      .soft(userUpdatedRetrievalJson.country)
-      .toEqual(userDataUpdated.country);
-    expect
-      .soft(userUpdatedRetrievalJson.postcode)
-      .toEqual(userDataUpdated.postcode);
-    expect.soft(userUpdatedRetrievalJson.phone).toEqual(userDataUpdated.phone);
-    expect.soft(userUpdatedRetrievalJson.dob).toEqual(userDataUpdated.dob);
-    expect.soft(userUpdatedRetrievalJson.email).toEqual(userDataUpdated.email);
+    expect.soft(userUpdatedGetJson.address).toEqual(userDataUpdated.address);
+    expect.soft(userUpdatedGetJson.city).toEqual(userDataUpdated.city);
+    expect.soft(userUpdatedGetJson.state).toEqual(userDataUpdated.state);
+    expect.soft(userUpdatedGetJson.country).toEqual(userDataUpdated.country);
+    expect.soft(userUpdatedGetJson.postcode).toEqual(userDataUpdated.postcode);
+    expect.soft(userUpdatedGetJson.phone).toEqual(userDataUpdated.phone);
+    expect.soft(userUpdatedGetJson.dob).toEqual(userDataUpdated.dob);
+    expect.soft(userUpdatedGetJson.email).toEqual(userDataUpdated.email);
   });
 
   test('should update user when logged in as the same user', async ({
@@ -140,32 +128,26 @@ test.describe('Verify user CRUD operations @crud', () => {
     ).toBe(expectedStatusCode);
 
     // Assert check updated user
-    const responseUserUpdatedRetrieval = await request.get(
+    const responseUserUpdatedGet = await request.get(
       `${apiUrls.usersUrl}/${userJson.id}`,
       { headers: headersAdmin },
     );
-    const userUpdatedRetrievalJson = await responseUserUpdatedRetrieval.json();
+    const userUpdatedGetJson = await responseUserUpdatedGet.json();
 
     expect
-      .soft(userUpdatedRetrievalJson.first_name)
+      .soft(userUpdatedGetJson.first_name)
       .toEqual(userDataUpdated.first_name);
     expect
-      .soft(userUpdatedRetrievalJson.last_name)
+      .soft(userUpdatedGetJson.last_name)
       .toEqual(userDataUpdated.last_name);
-    expect
-      .soft(userUpdatedRetrievalJson.address)
-      .toEqual(userDataUpdated.address);
-    expect.soft(userUpdatedRetrievalJson.city).toEqual(userDataUpdated.city);
-    expect.soft(userUpdatedRetrievalJson.state).toEqual(userDataUpdated.state);
-    expect
-      .soft(userUpdatedRetrievalJson.country)
-      .toEqual(userDataUpdated.country);
-    expect
-      .soft(userUpdatedRetrievalJson.postcode)
-      .toEqual(userDataUpdated.postcode);
-    expect.soft(userUpdatedRetrievalJson.phone).toEqual(userDataUpdated.phone);
-    expect.soft(userUpdatedRetrievalJson.dob).toEqual(userDataUpdated.dob);
-    expect.soft(userUpdatedRetrievalJson.email).toEqual(userDataUpdated.email);
+    expect.soft(userUpdatedGetJson.address).toEqual(userDataUpdated.address);
+    expect.soft(userUpdatedGetJson.city).toEqual(userDataUpdated.city);
+    expect.soft(userUpdatedGetJson.state).toEqual(userDataUpdated.state);
+    expect.soft(userUpdatedGetJson.country).toEqual(userDataUpdated.country);
+    expect.soft(userUpdatedGetJson.postcode).toEqual(userDataUpdated.postcode);
+    expect.soft(userUpdatedGetJson.phone).toEqual(userDataUpdated.phone);
+    expect.soft(userUpdatedGetJson.dob).toEqual(userDataUpdated.dob);
+    expect.soft(userUpdatedGetJson.email).toEqual(userDataUpdated.email);
   });
 
   test('should not update user without authorization', async ({ request }) => {
@@ -190,25 +172,23 @@ test.describe('Verify user CRUD operations @crud', () => {
       `expect status code ${expectedStatusCode}, and received ${actualResponseStatus}`,
     ).toBe(expectedStatusCode);
 
-    // Assert check updated user
-    const responseUserUpdatedRetrieval = await request.get(
+    // Assert check not updated user
+    const responseUserUpdatedGet = await request.get(
       `${apiUrls.usersUrl}/${userJson.id}`,
       { headers: headersAdmin },
     );
-    const userUpdatedRetrievalJson = await responseUserUpdatedRetrieval.json();
+    const userUpdatedGetJson = await responseUserUpdatedGet.json();
 
-    expect
-      .soft(userUpdatedRetrievalJson.first_name)
-      .toEqual(userData.first_name);
-    expect.soft(userUpdatedRetrievalJson.last_name).toEqual(userData.last_name);
-    expect.soft(userUpdatedRetrievalJson.address).toEqual(userData.address);
-    expect.soft(userUpdatedRetrievalJson.city).toEqual(userData.city);
-    expect.soft(userUpdatedRetrievalJson.state).toEqual(userData.state);
-    expect.soft(userUpdatedRetrievalJson.country).toEqual(userData.country);
-    expect.soft(userUpdatedRetrievalJson.postcode).toEqual(userData.postcode);
-    expect.soft(userUpdatedRetrievalJson.phone).toEqual(userData.phone);
-    expect.soft(userUpdatedRetrievalJson.dob).toEqual(userData.dob);
-    expect.soft(userUpdatedRetrievalJson.email).toEqual(userData.email);
+    expect.soft(userUpdatedGetJson.first_name).toEqual(userData.first_name);
+    expect.soft(userUpdatedGetJson.last_name).toEqual(userData.last_name);
+    expect.soft(userUpdatedGetJson.address).toEqual(userData.address);
+    expect.soft(userUpdatedGetJson.city).toEqual(userData.city);
+    expect.soft(userUpdatedGetJson.state).toEqual(userData.state);
+    expect.soft(userUpdatedGetJson.country).toEqual(userData.country);
+    expect.soft(userUpdatedGetJson.postcode).toEqual(userData.postcode);
+    expect.soft(userUpdatedGetJson.phone).toEqual(userData.phone);
+    expect.soft(userUpdatedGetJson.dob).toEqual(userData.dob);
+    expect.soft(userUpdatedGetJson.email).toEqual(userData.email);
   });
 
   test('should delete user when logged in as admin user', async ({
@@ -235,15 +215,13 @@ test.describe('Verify user CRUD operations @crud', () => {
     ).toBe(expectedStatusCode);
 
     // Assert check deleted user
-    const responseUserDeletedRetrieval = await request.get(
-      `${apiUrls.usersUrl}/${userId}`,
-      { headers: headersAdmin },
-    );
     const expectedDeletedUserStatusCode = 404;
-    expect(
-      responseUserDeletedRetrieval.status(),
-      `expected status code ${expectedDeletedUserStatusCode}, and received ${responseUserDeletedRetrieval.status()}`,
-    ).toBe(expectedDeletedUserStatusCode);
+    await expectGetResponseStatus(
+      request,
+      `${apiUrls.usersUrl}/${userId}`,
+      expectedDeletedUserStatusCode,
+      headersAdmin,
+    );
   });
 
   test('should not delete user when logged in as the same user', async ({
@@ -270,15 +248,13 @@ test.describe('Verify user CRUD operations @crud', () => {
     ).toBe(expectedStatusCode);
 
     // Assert check not deleted user
-    const responseUserDeletedRetrieval = await request.get(
+    const expectedNotDeletedUserStatusCode = 200;
+    await expectGetResponseStatus(
+      request,
       `${apiUrls.usersUrl}/${userId}`,
-      { headers: headersAdmin },
+      expectedNotDeletedUserStatusCode,
+      headersAdmin,
     );
-    const expectedDeletedUserStatusCode = 200;
-    expect(
-      responseUserDeletedRetrieval.status(),
-      `expected status code ${expectedDeletedUserStatusCode}, and received ${responseUserDeletedRetrieval.status()}`,
-    ).toBe(expectedDeletedUserStatusCode);
   });
 
   test('should not delete a user without authorization', async ({
@@ -302,14 +278,12 @@ test.describe('Verify user CRUD operations @crud', () => {
     ).toBe(expectedStatusCode);
 
     // Assert check not deleted user
-    const responseUserDeletedRetrieval = await request.get(
+    const expectedNotDeletedUserStatusCode = 200;
+    await expectGetResponseStatus(
+      request,
       `${apiUrls.usersUrl}/${userId}`,
-      { headers: headersAdmin },
+      expectedNotDeletedUserStatusCode,
+      headersAdmin,
     );
-    const expectedDeletedUserStatusCode = 200;
-    expect(
-      responseUserDeletedRetrieval.status(),
-      `expected status code ${expectedDeletedUserStatusCode}, and received ${responseUserDeletedRetrieval.status()}`,
-    ).toBe(expectedDeletedUserStatusCode);
   });
 });
