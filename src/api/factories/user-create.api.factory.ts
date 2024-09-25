@@ -6,8 +6,8 @@ import { APIRequestContext, APIResponse } from '@playwright/test';
 
 export async function createUserWithApi(
   request: APIRequestContext,
-  headersAdmin: Headers,
   userData: RegisterUserPayload,
+  headersAdmin: Headers,
 ): Promise<APIResponse> {
   const responseUser = await request.post(apiUrls.registerUrl, {
     data: userData,
