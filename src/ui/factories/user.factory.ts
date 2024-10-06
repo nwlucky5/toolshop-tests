@@ -11,7 +11,7 @@ export function prepareRandomUser(): RegisterUserModel {
     country: faker.location.country(),
     postcode: faker.location.zipCode(),
     phone: faker.string.numeric(9),
-    dob: '',
+    dateOfBirth: '',
     password: '',
     email: '',
   };
@@ -20,7 +20,7 @@ export function prepareRandomUser(): RegisterUserModel {
     from: '1950-01-01',
     to: '2006-01-01',
   });
-  registerUserData.dob = randomDate.toLocaleDateString('en-CA');
+  registerUserData.dateOfBirth = randomDate.toLocaleDateString('en-CA');
 
   registerUserData.password = faker.internet.password({
     prefix: '#$%9Av',

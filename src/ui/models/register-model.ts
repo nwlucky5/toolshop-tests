@@ -7,7 +7,7 @@ export interface RegisterUserModel {
   country: string;
   postcode: string;
   phone: string;
-  dob: string;
+  dateOfBirth: string;
   password: string;
   email: string;
 }

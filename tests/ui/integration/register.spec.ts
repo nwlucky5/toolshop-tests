@@ -25,7 +25,7 @@ test.describe('Register form verification', () => {
     // Arrange
     registerUserData.first_name = '';
     registerUserData.last_name = '';
-    registerUserData.dob = '';
+    registerUserData.dateOfBirth = '';
     registerUserData.address = '';
     registerUserData.postcode = '';
     registerUserData.city = '';
@@ -119,7 +119,7 @@ test.describe('Register form verification', () => {
     registerPage,
   }) => {
     // Arrange
-    registerUserData.dob = '';
+    registerUserData.dateOfBirth = '';
     const expectedDateOfBirthErrorText = 'Date of Birth is required';
 
     // Act

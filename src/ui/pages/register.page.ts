@@ -48,7 +48,7 @@ export class RegisterPage extends BasePage {
   ): Promise<void> {
     await this.firstNameInput.fill(randomUserData.first_name);
     await this.lastNameInput.fill(randomUserData.last_name);
-    await this.dateOfBirthPicker.fill(randomUserData.dob);
+    await this.dateOfBirthPicker.fill(randomUserData.dateOfBirth);
     await this.addressInput.fill(randomUserData.address);
     await this.postcodeInput.fill(randomUserData.postcode);
     await this.cityInput.fill(randomUserData.city);
