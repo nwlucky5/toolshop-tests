@@ -1,6 +1,6 @@
 export interface RegisterUserModel {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   address: string;
   city: string;
   state: string;

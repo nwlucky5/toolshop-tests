@@ -23,8 +23,8 @@ test.describe('Register form verification', () => {
     registerPage,
   }) => {
     // Arrange
-    registerUserData.first_name = '';
-    registerUserData.last_name = '';
+    registerUserData.firstName = '';
+    registerUserData.lastName = '';
     registerUserData.dateOfBirth = '';
     registerUserData.address = '';
     registerUserData.postcode = '';
@@ -87,7 +87,7 @@ test.describe('Register form verification', () => {
     registerPage,
   }) => {
     // Arrange
-    registerUserData.first_name = '';
+    registerUserData.firstName = '';
     const expectedFirstNameErrorText = 'First name is required';
 
     // Act
@@ -103,7 +103,7 @@ test.describe('Register form verification', () => {
     registerPage,
   }) => {
     // Arrange
-    registerUserData.last_name = '';
+    registerUserData.lastName = '';
     const expectedLastNameErrorText = 'Last name is required';
 
     // Act

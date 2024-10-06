@@ -3,8 +3,8 @@ import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomUser(): RegisterUserModel {
   const registerUserData: RegisterUserModel = {
-    first_name: faker.person.firstName().replace(/[^A-Za-z]/g, ''),
-    last_name: faker.person.lastName().replace(/[^A-Za-z]/g, ''),
+    firstName: faker.person.firstName().replace(/[^A-Za-z]/g, ''),
+    lastName: faker.person.lastName().replace(/[^A-Za-z]/g, ''),
     address: faker.location.streetAddress(),
     city: faker.location.city(),
     state: faker.location.state(),
@@ -28,8 +28,8 @@ export function prepareRandomUser(): RegisterUserModel {
   });
 
   registerUserData.email = faker.internet.email({
-    firstName: registerUserData.first_name,
-    lastName: registerUserData.last_name,
+    firstName: registerUserData.firstName,
+    lastName: registerUserData.lastName,
   });
 
   return registerUserData;
