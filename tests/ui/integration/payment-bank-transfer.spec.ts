@@ -45,7 +45,7 @@ test.describe('Payment process verification for Bank Transfer', () => {
     const expectedBankNameError =
       'Bank name can only contain letters and spaces.';
     const bankTransferData = prepareRandomBankTransfer();
-    bankTransferData.payment_details.bank_name = '1';
+    bankTransferData.paymentDetails.bankName = '1';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -65,7 +65,7 @@ test.describe('Payment process verification for Bank Transfer', () => {
     const expectedAccountNameError =
       'Account name can contain letters, numbers, spaces, periods, apostrophes, and hyphens.';
     const bankTransferData = prepareRandomBankTransfer();
-    bankTransferData.payment_details.account_name = '!';
+    bankTransferData.paymentDetails.accountName = '!';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -84,7 +84,7 @@ test.describe('Payment process verification for Bank Transfer', () => {
     const paymentMethod = 'Bank Transfer';
     const expectedAccountNumberError = 'Account number must be numeric.';
     const bankTransferData = prepareRandomBankTransfer();
-    bankTransferData.payment_details.account_number = 'number';
+    bankTransferData.paymentDetails.accountNumber = 'number';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);

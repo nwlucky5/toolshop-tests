@@ -30,7 +30,6 @@ export class CheckoutPaymentView {
     'Expiration date must be in the future.',
   );
   CVVError = this.page.getByText('CVV must be 3 or 4 digits.');
-  // cardHolderNameError = this.page.locator('[data-test="card_holder_name"]');
   monthlyInstallmentsError = this.page.getByText(
     /number of monthly installments/,
   );
@@ -53,26 +52,26 @@ export class CheckoutPaymentView {
   async payWithBankTransfer(
     bankTransferData: BankTransferModel,
   ): Promise<void> {
-    await this.bankNameInput.fill(bankTransferData.payment_details.bank_name);
+    await this.bankNameInput.fill(bankTransferData.paymentDetails.bankName);
     await this.accountNameInput.fill(
-      bankTransferData.payment_details.account_name,
+      bankTransferData.paymentDetails.accountName,
     );
     await this.accountNumberInput.fill(
-      bankTransferData.payment_details.account_number,
+      bankTransferData.paymentDetails.accountNumber,
     );
   }
 
   async payWithCreditCard(creditCardData: CreditCardModel): Promise<void> {
     await this.creditCardNumberInput.fill(
-      creditCardData.payment_details.credit_card_number,
+      creditCardData.paymentDetails.creditCardNumber,
     );
     await this.expirationDateInput.fill(
-      creditCardData.payment_details.expiration_date,
+      creditCardData.paymentDetails.expirationDate,
     );
-    await this.CVVInput.fill(creditCardData.payment_details.cvv);
+    await this.CVVInput.fill(creditCardData.paymentDetails.cvv);
 
     await this.cardHolderNameInput.fill(
-      creditCardData.payment_details.card_holder_name,
+      creditCardData.paymentDetails.cardHolderName,
     );
   }
 
@@ -82,10 +81,10 @@ export class CheckoutPaymentView {
 
   async payWithGiftCard(giftCardData: GiftCardModel): Promise<void> {
     await this.giftNardNumberInput.fill(
-      giftCardData.payment_details.gift_card_number,
+      giftCardData.paymentDetails.giftCardNumber,
     );
     await this.validationCodeInput.fill(
-      giftCardData.payment_details.validation_code,
+      giftCardData.paymentDetails.validationCode,
     );
   }
 

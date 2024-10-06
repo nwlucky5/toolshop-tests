@@ -7,11 +7,11 @@ import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomBankTransfer(): BankTransferModel {
   const bankTransferData: BankTransferModel = {
-    payment_method: 'Bank Transfer',
-    payment_details: {
-      bank_name: `${faker.company.name().replace(/[^A-Za-z]/g, '')} Bank`,
-      account_name: faker.finance.accountName(),
-      account_number: faker.finance.accountNumber(),
+    paymentMethod: 'Bank Transfer',
+    paymentDetails: {
+      bankName: `${faker.company.name().replace(/[^A-Za-z]/g, '')} Bank`,
+      accountName: faker.finance.accountName(),
+      accountNumber: faker.finance.accountNumber(),
     },
   };
 
@@ -20,23 +20,23 @@ export function prepareRandomBankTransfer(): BankTransferModel {
 
 export function prepareRandomCreditCard(): CreditCardModel {
   const creditCardData: CreditCardModel = {
-    payment_method: 'Credit Card',
-    payment_details: {
-      credit_card_number: faker.finance.creditCardNumber('####-####-####-####'),
-      expiration_date: '',
+    paymentMethod: 'Credit Card',
+    paymentDetails: {
+      creditCardNumber: faker.finance.creditCardNumber('####-####-####-####'),
+      expirationDate: '',
       cvv: faker.finance.creditCardCVV(),
-      card_holder_name: faker.finance.creditCardIssuer(),
+      cardHolderName: faker.finance.creditCardIssuer(),
     },
   };
 
-  creditCardData.payment_details.expiration_date = faker.date
+  creditCardData.paymentDetails.expirationDate = faker.date
     .future()
     .toLocaleDateString('en-US', {
       month: '2-digit',
       year: 'numeric',
     });
 
-  creditCardData.payment_details.card_holder_name = `${faker.person.firstName().replace(/[^A-Za-z]/g, '')} 
+  creditCardData.paymentDetails.cardHolderName = `${faker.person.firstName().replace(/[^A-Za-z]/g, '')} 
     ${faker.person.lastName().replace(/[^A-Za-z]/g, '')}`;
 
   return creditCardData;
@@ -44,13 +44,13 @@ export function prepareRandomCreditCard(): CreditCardModel {
 
 export function prepareRandomGiftCard(): GiftCardModel {
   const giftCardData: GiftCardModel = {
-    payment_method: 'Gift Card',
-    payment_details: {
-      gift_card_number: faker.string.alphanumeric({
+    paymentMethod: 'Gift Card',
+    paymentDetails: {
+      giftCardNumber: faker.string.alphanumeric({
         length: 20,
         casing: 'upper',
       }),
-      validation_code: faker.string.alphanumeric(6),
+      validationCode: faker.string.alphanumeric(6),
     },
   };
 

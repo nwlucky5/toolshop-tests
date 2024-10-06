@@ -45,7 +45,7 @@ test.describe('Payment process verification for Gift Card', () => {
     const expectedGiftCardNumberError =
       'Gift card number must be alphanumeric.';
     const giftCardData = prepareRandomGiftCard();
-    giftCardData.payment_details.gift_card_number = '!';
+    giftCardData.paymentDetails.giftCardNumber = '!';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -64,7 +64,7 @@ test.describe('Payment process verification for Gift Card', () => {
     const paymentMethod = 'Gift Card';
     const expectedValidationCodeError = 'Validation code must be alphanumeric.';
     const giftCardData = prepareRandomGiftCard();
-    giftCardData.payment_details.validation_code = '!';
+    giftCardData.paymentDetails.validationCode = '!';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);

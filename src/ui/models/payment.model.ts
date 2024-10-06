@@ -1,26 +1,26 @@
 export interface BankTransferModel {
-  payment_method: 'Bank Transfer';
-  payment_details: {
-    bank_name: string;
-    account_name: string;
-    account_number: string;
+  paymentMethod: 'Bank Transfer';
+  paymentDetails: {
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
   };
 }
 
 export interface CreditCardModel {
-  payment_method: 'Credit Card';
-  payment_details: {
-    credit_card_number: string;
-    expiration_date: string;
+  paymentMethod: 'Credit Card';
+  paymentDetails: {
+    creditCardNumber: string;
+    expirationDate: string;
     cvv: string;
-    card_holder_name: string;
+    cardHolderName: string;
   };
 }
 
 export interface GiftCardModel {
-  payment_method: 'Gift Card';
-  payment_details: {
-    gift_card_number: string;
-    validation_code: string;
+  paymentMethod: 'Gift Card';
+  paymentDetails: {
+    giftCardNumber: string;
+    validationCode: string;
   };
 }

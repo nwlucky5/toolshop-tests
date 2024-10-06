@@ -44,7 +44,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedCreditCardNumberError = 'Invalid card number format.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.credit_card_number = '111122223333444';
+    creditCardData.paymentDetails.creditCardNumber = '111122223333444';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -63,7 +63,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedCreditCardNumberError = 'Invalid card number format.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.credit_card_number = '111122223333444';
+    creditCardData.paymentDetails.creditCardNumber = '111122223333444';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -82,7 +82,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedCreditCardNumberError = 'Invalid card number format.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.credit_card_number = '111122223333444';
+    creditCardData.paymentDetails.creditCardNumber = '111122223333444';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -101,7 +101,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedExpirationDateError = 'Invalid date format. Use MM/YYYY.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.expiration_date = '!';
+    creditCardData.paymentDetails.expirationDate = '!';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -121,7 +121,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const expectedExpirationDateError =
       'Expiration date must be in the future.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.expiration_date = '01/2000';
+    creditCardData.paymentDetails.expirationDate = '01/2000';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -140,7 +140,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedCVVError = 'CVV must be 3 or 4 digits.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.cvv = '!';
+    creditCardData.paymentDetails.cvv = '!';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -157,7 +157,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedCVVError = 'CVV must be 3 or 4 digits.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.cvv = '11';
+    creditCardData.paymentDetails.cvv = '11';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
@@ -174,7 +174,7 @@ test.describe('Payment process verification for Credit Card', () => {
     const paymentMethod = 'Credit Card';
     const expectedCVVError = 'CVV must be 3 or 4 digits.';
     const creditCardData = prepareRandomCreditCard();
-    creditCardData.payment_details.cvv = '11111';
+    creditCardData.paymentDetails.cvv = '11111';
 
     // Act
     await checkoutPaymentView.selectPaymentMethod(paymentMethod);
