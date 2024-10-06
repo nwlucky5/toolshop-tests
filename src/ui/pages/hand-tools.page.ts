@@ -5,7 +5,11 @@ import { Page } from '@playwright/test';
 export class HandToolsPage extends BasePage {
   url = '/category/hand-tools';
   categoryTitle = this.page.locator('[data-test="page-title"]');
-  firstProduct = this.page.getByText('Combination Pliers');
+  firstProduct = this.page
+    .locator('.container')
+    .locator('.card')
+    .locator('.card-title')
+    .first();
   productOutOfStock = this.page.getByText('Out of stock');
 
   constructor(page: Page) {
