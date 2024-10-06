@@ -12,7 +12,7 @@ export function prepareUserPayload(): RegisterUserPayload {
     country: randomUserData.country,
     postcode: randomUserData.postcode,
     phone: randomUserData.phone,
-    dob: randomUserData.dob,
+    dob: randomUserData.dateOfBirth,
     password: randomUserData.password,
     email: randomUserData.email,
   };
