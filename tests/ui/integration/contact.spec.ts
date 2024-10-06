@@ -27,7 +27,8 @@ test.describe('Contact form verification', () => {
     contactPage,
   }) => {
     // Arrange
-    const attachmentRelativePath = 'fixtures/attachment1.txt';
+    const attachmentRelativePath =
+      'tests/ui/integration/attachments/attachment1.txt';
     const expectedConformationMessageText =
       'Thanks for your message! We will contact you shortly.';
 
@@ -44,7 +45,8 @@ test.describe('Contact form verification', () => {
     contactPage,
   }) => {
     // Arrange
-    const attachmentRelativePath = 'fixtures/attachment2.txt';
+    const attachmentRelativePath =
+      'tests/ui/integration/attachments/attachment2.txt';
     const expectedAttachmentErrorText = 'File should be empty.';
 
     // Act
@@ -60,7 +62,8 @@ test.describe('Contact form verification', () => {
     contactPage,
   }) => {
     // Arrange
-    const attachmentRelativePath = 'fixtures/image1.jpg';
+    const attachmentRelativePath =
+      'tests/ui/integration/attachments/image1.jpg';
     const expectedAttachmentErrorText = 'File should be empty.';
 
     // Act
