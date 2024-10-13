@@ -15,7 +15,12 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   workers: undefined,
-  reporter: 'html',
+  reporter: [
+    ['html'],
+    ['github'],
+    ['json', { outputFile: 'results.json' }],
+    ['junit', { outputFile: 'results.xml' }],
+  ],
   use: {
     baseURL: BASE_URL,
     actionTimeout: 0,
