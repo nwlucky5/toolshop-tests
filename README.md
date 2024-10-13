@@ -11,7 +11,7 @@ Toolshop tests project covers UI and API tests for an online store demo applicat
 - data parametrization
 - session authorization
 - static code analysis with ESLint and Prettier
-- CI/CD pipeline
+- CI pipeline
 
 ## Toolshop Application
 
