@@ -7,7 +7,7 @@ import { RegisterUserPayload } from '@_src/api/models/register.api.models';
 import { apiUrls } from '@_src/api/utils/api.util';
 import test, { APIResponse, expect } from '@playwright/test';
 
-test.describe('Verify user UPDATE operations @crud', () => {
+test.describe('Verify user UPDATE operations @api', () => {
   let headersAdmin: Headers;
   let headers: Headers;
   let responseUser: APIResponse;

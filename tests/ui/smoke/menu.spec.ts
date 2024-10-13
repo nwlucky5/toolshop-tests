@@ -1,6 +1,6 @@
 import { expect, test } from '@_src/ui/fixtures/merge.fixture';
 
-test.describe('Verify menu main buttons', () => {
+test.describe('Verify menu main buttons @smoke', () => {
   test('Home link navigates to Home page', async ({
     page,
     homePage,

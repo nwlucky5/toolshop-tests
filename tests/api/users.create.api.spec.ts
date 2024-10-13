@@ -3,7 +3,7 @@ import { createUserWithApi } from '@_src/api/factories/user-create.api.factory';
 import { prepareUserPayload } from '@_src/api/factories/user-payload.api.factory';
 import test, { expect } from '@playwright/test';
 
-test.describe('Verify user CREATE operations @crud', () => {
+test.describe('Verify user CREATE operations @api', () => {
   test('should create user', async ({ request }) => {
     // Arrange
     const expectedStatusCode = 201;
